@@ -45,4 +45,36 @@ class AdminController extends Controller
         $no = 1;
         return view('admin.status-bondg', compact('bondg', 'no'));
     }
+
+    public function detail_bondg(Request $request)
+    {
+        $id = $request->id;
+        $bondg = bondg::find($id);
+        return view('admin.detail-bondg', compact('bondg'));
+    }
+
+    public function hapus_bondg(Request $request)
+    {
+        $id = $request->id;
+        $bondg = bondg::find($id);
+        $bondg->delete();
+        return redirect('/bondg')->with('success', 'BON DG Berhasil Dihapus');
+    }
+
+    public function edit_bondg(Request $request, $id)
+    {
+        $bondg = bondg::find($id);
+        $bondg->posko = $request->posko;
+        $bondg->tgldg = $request->tgldg;
+        $bondg->nodg = $request->nodg;
+        $bondg->namapel = $request->namapel;
+        $bondg->idpel = $request->idpel;
+        $bondg->gardu = $request->gardu;
+        $bondg->tarif = $request->tarif;
+        $bondg->daya = $request->daya;
+        $bondg->nohp = $request->nohp;
+        $bondg->nometerlama = $request->nometerlama;
+        $bondg->save();
+        return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');
+    }
 }
