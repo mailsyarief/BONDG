@@ -12,9 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
+});
+
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/input-bondg', 'AdminController@showform_bondg');
+Route::get('/bondg', 'AdminController@status_bondg');
+Route::post('/bondg', 'AdminController@input_bondg');
