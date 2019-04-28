@@ -99,7 +99,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                                                        <form action = "../aktifkan-akun" method="POST">
+                                                        <form action = "../aktifkan-akun" method="POST"> 
                                                         @csrf
                                                             <input type="text" value="{{$data->id}}" name="id" hidden>
                                                             <button type="submit" class="btn btn-danger">Ya</button>

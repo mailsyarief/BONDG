@@ -31,6 +31,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- general form elements -->
+                        <!-- general form elements -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h5><i class="icon fa fa-ban"></i> Alert!</h5>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>                            
+                        @endif
                         @include('layouts.alert')
                         <div class="card">
                             <div class="card-header">
@@ -42,12 +54,12 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 5%;">No.</th>
-                                            <th>Posko</th>
                                             <th>Tgl. Laporan</th>
                                             <th>No. DG</th>
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
                                             <th>Status</th>
+                                            <th style="width: 10%;">Waktu Pengerjaan</th>
                                             <th>Pilihan</th>
                                         </tr>
                                     </thead>
@@ -55,12 +67,44 @@
                                         @foreach ($bondg as $data)
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
-                                            <td>{{$data->posko}}</td>
                                             <td>{{$data->tgldg}}</td>
                                             <td>{{$data->nodg}}</td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
                                             <td>{{$data->status}}</td>
+                                            <td>
+                                                @if ($data->status=="Laporan")
+                                                <?php
+                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tgldg);
+                                                    echo $date;
+                                                ?> hari
+                                                @elseif ($data->status=="Cetak PK")
+                                                <?php
+                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglpk);
+                                                    echo $date;
+                                                ?> hari
+                                                @elseif ($data->status=="Pengiriman WO")
+                                                <?php
+                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglkirimpetugas);
+                                                    echo $date;
+                                                ?> hari
+                                                @elseif ($data->status=="Terpasang")
+                                                <?php
+                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglterpasang);
+                                                    echo $date;
+                                                ?> hari
+                                                @elseif ($data->status=="Remaja")
+                                                <?php
+                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglremaja);
+                                                    echo $date;
+                                                ?> hari
+                                                @elseif ($data->status=="Batal")
+                                                <?php
+                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglbatal);
+                                                    echo $date;
+                                                ?> hari
+                                                @endif
+                                            </td>
                                             <td style="width: 10%" class="text-center">
                                                 <div class="btn-group">
                                                 <form action = "../detail-bondg" method="POST">
@@ -172,13 +216,13 @@
                                     <tfoot>
                                         <tr>
                                             <th style="width: 5%;">No.</th>
-                                            <th>Posko</th>
                                             <th>Tgl. Laporan</th>
                                             <th>No. DG</th>
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
                                             <th>Status</th>
-                                            <th>Pilihan</th>
+                                            <th>Waktu Pengerjaan</th>
+                                            <th>Pilihan</th>                                            
                                         </tr>
                                     </tfoot>
                                 </table>

@@ -16,9 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/test', 'AdminController@test');
 
 //Auth::routes();
 
@@ -34,8 +32,8 @@ Route::post('/bondg', 'AdminController@input_bondg');
 Route::post('/detail-bondg', 'AdminController@detail_bondg');
 Route::post('/hapus-bondg', 'AdminController@hapus_bondg');
 Route::post('/edit-bondg/{id}', 'AdminController@edit_bondg');
-Route::post('/search-bondg', 'AdminController@search_bondg');
-Route::post('/input-ap2t', 'AdminController@input_ap2t');
+Route::post('/input-ap2t', 'AdminController@search_bondg');
+Route::post('/tambah-ap2t', 'AdminController@input_ap2t');
 Route::get('/register-akun', 'AdminController@showform_akun');
 Route::post('/register-akun', 'AdminController@register_akun');
 Route::get('/daftar-akun', 'AdminController@akun');

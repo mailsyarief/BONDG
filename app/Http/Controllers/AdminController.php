@@ -9,7 +9,7 @@ use \Auth;
 use \Session;
 use App\bondg;
 use App\User;
-
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -28,6 +28,11 @@ class AdminController extends Controller
 
     public function input_bondg(Request $request)
     {
+        $this->validate($request, [
+            'idpel' => ['required', 'string', 'min:12', 'max:12'],
+            'nometerlama' => ['required', 'string', 'min:11', 'max:11'],
+            
+        ]);
         $bondg = new bondg;
         $bondg->posko = $request->posko;
         $bondg->tgldg = $request->tgldg;
@@ -105,6 +110,10 @@ class AdminController extends Controller
     {
         $id = $request->id;
         $bondg = bondg::find($id);
+        $this->validate($request, [
+            'noagenda' => ['required', 'string', 'min:18', 'max:18'],
+            'nometerbaru' => ['required', 'string', 'min:11', 'max:11'],            
+        ]);
         $bondg->noagenda = $request->noagenda;
         $bondg->nometerbaru = $request->nometerbaru;
         $bondg->tglpk = now();
@@ -163,5 +172,12 @@ class AdminController extends Controller
             return redirect('/daftar-akun')->with('success', 'Akun berhasil diaktifkan');
         }
         
+    }
+
+    public function test()
+    {
+        $bondg = bondg::find(1);
+        $date = Carbon::now()->diffInDays($bondg->tgldg);
+        dd($date);
     }
 }

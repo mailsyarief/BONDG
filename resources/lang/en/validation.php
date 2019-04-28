@@ -131,6 +131,23 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'idpel' => [
+            'min' => 'ID pelanggan harus 12 digit!',
+            'max' => 'ID pelanggan harus 12 digit!',
+        ],
+        'noagenda' => [
+            'min' => 'Nomor agenda harus 18 digit',
+            'max' => 'Nomor agenda harus 18 digit',
+        ],
+        'nometerlama' => [
+            'min' => 'Nomor meter harus 11 digit!',
+            'max' => 'Nomor meter harus 11 digit!',
+        ],
+        'nometerbaru' => [
+            'min' => 'Nomor meter harus 11 digit!',
+            'max' => 'Nomor meter harus 11 digit!',
+        ],
+
     ],
 
     /*

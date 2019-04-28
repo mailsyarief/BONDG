@@ -30,6 +30,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- general form elements -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h5><i class="icon fa fa-ban"></i> Alert!</h5>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>                            
+                        @endif
                         @include('layouts.alert')
                         <div class="card card-info">
                             <div class="card-header">
@@ -42,7 +53,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputFile">Masukkan nomor DG</label>
-                                            <form method="POST" action="/search-bondg">
+                                            <form method="POST" action="/input-ap2t">
                                                 @csrf
                                                 <div class="input-group">
                                                     <div class="custom-file">                                                        
@@ -105,7 +116,7 @@
                                                 </table>
                                             </div>
                                             <div class="col-md-6">
-                                                <form method="POST" action="/input-ap2t">
+                                                <form method="POST" action="../tambah-ap2t">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">No. agenda</label>
