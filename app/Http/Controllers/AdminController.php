@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
 use \Auth;
 use \Session;
 use App\bondg;
+use App\User;
+
 
 class AdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role');
+        $this->middleware('admin');
     }
 
+
+    //bondg
     public function showform_bondg()
     {
         return view('admin.input-bondg');
@@ -36,7 +41,7 @@ class AdminController extends Controller
         $bondg->nometerlama = $request->nometerlama;
         $bondg->status = "Laporan";
         $bondg->save();
-        return redirect('/input-bondg')->with('success', 'BON DG Berhasil Ditambah');
+        return redirect('/input-bondg')->with('success', 'BON DG Berhasil Disimpan');
     }
 
     public function status_bondg()
@@ -76,5 +81,87 @@ class AdminController extends Controller
         $bondg->nometerlama = $request->nometerlama;
         $bondg->save();
         return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');
+    }
+
+    //ap2t
+    public function showform_ap2t()
+    {
+        $norows = 1;
+        $bondg = bondg::get();
+        $count = 0;
+        return view('admin.input-ap2t', compact('bondg', 'norows', 'count'));
+    }
+
+    public function search_bondg(Request $request)
+    {
+        $nobondg = $request->nodg;
+        $bondg= bondg::where('nodg', '=', $nobondg)->get();
+        $norows = count($bondg);
+        $count = 1;
+        return view('admin.input-ap2t', compact('bondg', 'norows', 'count'));
+    }
+
+    public function input_ap2t(Request $request)
+    {
+        $id = $request->id;
+        $bondg = bondg::find($id);
+        $bondg->noagenda = $request->noagenda;
+        $bondg->nometerbaru = $request->nometerbaru;
+        $bondg->tglpk = now();
+        $bondg->status = "Cetak PK";
+        $bondg->save();
+        return redirect('/input-ap2t')->with('success', 'AP2T Berhasil Disimpan');
+    }
+
+    //akun petugas
+    public function showform_akun()
+    {
+        return view('admin.input-akun');
+    }
+
+    public function register_akun(Request $request)
+    {
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string', 'max:255'],
+        ]);
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'active' => 1,
+        ]);
+        return redirect('/register-akun')->with('success', 'Akun Berhasil Didaftarkan');
+    }
+
+    public function akun()
+    {
+        $no = 1;
+        $akun = user::where('id', '!=', Auth::user()->id)->get();
+        return view('admin.akun', compact('no','akun'));
+    }
+
+    public function activate_akun(Request $request)
+    {
+        $id = $request->id;
+        $user = user::find($id);
+        if ($user->active==1)
+        {
+            $user->active=0;
+            $user->save();
+            return redirect('/daftar-akun')->with('success', 'Akun berhasil dinonaktifkan');
+        }
+        else
+        {
+            $user->active= 1;
+            $user->save();
+            return redirect('/daftar-akun')->with('success', 'Akun berhasil diaktifkan');
+        }
+        
     }
 }

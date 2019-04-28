@@ -72,6 +72,30 @@
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user mr-2"></i>{{Auth::user()->name}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-circle mr-2"></i>Edit Profil
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-key mr-2"></i> Ganti Password
+                    </a>                    
+                    <div class="dropdown-divider"></div>                       
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit();">
+                            <i class="fa fa-sign-out mr-2"></i> Log Out
+                        </a>
+                    </form>    
+                </div>         
+            </li>
+            
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -93,7 +117,8 @@
                     <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <small style="color: white"> Welcome, </small>
+                    <a href="#" class="d-block">{{Auth::user()->name}}</a>
                 </div>
             </div>
 
@@ -125,7 +150,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
+                            <a href="../input-ap2t" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
                             <p>AP2T</p>
                             </a>
@@ -145,6 +170,12 @@
                         </a>
                     </li>
                     @endif
+                    <li class="nav-item">
+                        <a href="../bondg" class="nav-link">
+                        <i class="nav-icon fa fa-file"></i>
+                        <p>Status</p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-file"></i>
@@ -186,13 +217,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link">
+                                <a href="../daftar-akun" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Daftar Akun Petugas</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./index2.html" class="nav-link">
+                                <a href="../register-akun" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Tambah Akun Petugas</p>
                                 </a>
