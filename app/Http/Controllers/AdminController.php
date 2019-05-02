@@ -31,7 +31,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'idpel' => ['required', 'string', 'min:12', 'max:12'],
             'nometerlama' => ['required', 'string', 'min:11', 'max:11'],
-            
+            'nodg' => ['required', 'unique:bondg'],
         ]);
         $bondg = new bondg;
         $bondg->posko = $request->posko;
@@ -44,7 +44,11 @@ class AdminController extends Controller
         $bondg->daya = $request->daya;
         $bondg->nohp = $request->nohp;
         $bondg->nometerlama = $request->nometerlama;
+        $bondg->alamat = $request->alamat;
+        $bondg->keluhan = $request->keluhan;
+        $bondg->perbaikan = $request->perbaikan;
         $bondg->status = "Laporan";
+        $bondg->waktupengerjaan = 0;
         $bondg->save();
         return redirect('/input-bondg')->with('success', 'BON DG Berhasil Disimpan');
     }
@@ -59,7 +63,7 @@ class AdminController extends Controller
     public function detail_bondg(Request $request)
     {
         $id = $request->id;
-        $bondg = bondg::find($id);
+        $bondg = bondg::with('petugas')->find($id);
         return view('admin.detail-bondg', compact('bondg'));
     }
 
@@ -75,7 +79,6 @@ class AdminController extends Controller
     {
         $bondg = bondg::find($id);
         $bondg->posko = $request->posko;
-        $bondg->tgldg = $request->tgldg;
         $bondg->nodg = $request->nodg;
         $bondg->namapel = $request->namapel;
         $bondg->idpel = $request->idpel;
@@ -83,6 +86,9 @@ class AdminController extends Controller
         $bondg->tarif = $request->tarif;
         $bondg->daya = $request->daya;
         $bondg->nohp = $request->nohp;
+        $bondg->keluhan = $request->keluhan;
+        $bondg->perbaikan = $request->perbaikan;
+        $bondg->alamat = $request->alamat;
         $bondg->nometerlama = $request->nometerlama;
         $bondg->save();
         return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');
@@ -106,18 +112,30 @@ class AdminController extends Controller
         return view('admin.input-ap2t', compact('bondg', 'norows', 'count'));
     }
 
+    public function search_bondg_2(Request $request)
+    {
+        $nobondg = $request->nodg;
+        $bondg= bondg::where('nodg', '=', $nobondg)->get();
+        $norows = count($bondg);
+        $petugas = user::where('role', '=', '0')->get();
+        $count = 1;
+        return view('admin.input-petugas', compact('bondg', 'norows', 'count', 'petugas'));
+    }
+
     public function input_ap2t(Request $request)
     {
         $id = $request->id;
         $bondg = bondg::find($id);
         $this->validate($request, [
             'noagenda' => ['required', 'string', 'min:18', 'max:18'],
-            'nometerbaru' => ['required', 'string', 'min:11', 'max:11'],            
+            'nometerbaru' => ['required', 'string', 'min:11', 'max:11'],
+            'noagenda' => ['required', 'unique:nondg'],            
         ]);
         $bondg->noagenda = $request->noagenda;
         $bondg->nometerbaru = $request->nometerbaru;
         $bondg->tglpk = now();
         $bondg->status = "Cetak PK";
+        $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
         $bondg->save();
         return redirect('/input-ap2t')->with('success', 'AP2T Berhasil Disimpan');
     }
@@ -177,7 +195,27 @@ class AdminController extends Controller
     public function test()
     {
         $bondg = bondg::find(1);
-        $date = Carbon::now()->diffInDays($bondg->tgldg);
+        $date = Carbon::createFromDate($bondg->tglpk)->diffInDays($bondg->tgldg);
         dd($date);
+    }
+
+    public function showform_petugas()
+    {
+        $norows = 1;
+        $bondg = bondg::get();
+        $count = 0;
+        $petugas = user::where('role', '=', '0')->get();
+        return view('admin.input-petugas', compact('bondg', 'norows', 'count', 'petugas'));
+    }
+
+    public function tambah_petugas(Request $request)
+    {
+        $id = $request->id;
+        $bondg = bondg::find($id);
+        $bondg->id_petugas = $request->petugas;
+        $bondg->status = "Pengiriman WO";
+        $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+        $bondg->save();
+        return redirect('/input-petugas')->with('success', 'Petugas berhasil diaktifkan');
     }
 }

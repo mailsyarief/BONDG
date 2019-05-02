@@ -12,7 +12,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        
+                        <h1 class="m-0 text-dark">Status BON DG</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -45,11 +45,21 @@
                         @endif
                         @include('layouts.alert')
                         <div class="card">
-                            <div class="card-header">
-                              <h3 class="card-title">Status BON DG</h3>
-                            </div>
+                            <div class="card-header">                                
+                                <div class="row">
+                                    <div class="col-1">
+                                        Filter:
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" placeholder=".col-4">
+                                    </div>
+                                    <div class="col-2">                                        
+                                        <button type="button" class="btn btn-block btn-outline-info"><i class="fa fa-download"></i> Download</button>
+                                    </div>
+                                </div>
+                            </div>                            
                             <!-- /.card-header -->
-                            <div class="card-body">
+                            <div class="card-body">                                
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -67,43 +77,13 @@
                                         @foreach ($bondg as $data)
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
-                                            <td>{{$data->tgldg}}</td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->toFormattedDateString(); ?></td>
                                             <td>{{$data->nodg}}</td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
                                             <td>{{$data->status}}</td>
                                             <td>
-                                                @if ($data->status=="Laporan")
-                                                <?php
-                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tgldg);
-                                                    echo $date;
-                                                ?> hari
-                                                @elseif ($data->status=="Cetak PK")
-                                                <?php
-                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglpk);
-                                                    echo $date;
-                                                ?> hari
-                                                @elseif ($data->status=="Pengiriman WO")
-                                                <?php
-                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglkirimpetugas);
-                                                    echo $date;
-                                                ?> hari
-                                                @elseif ($data->status=="Terpasang")
-                                                <?php
-                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglterpasang);
-                                                    echo $date;
-                                                ?> hari
-                                                @elseif ($data->status=="Remaja")
-                                                <?php
-                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglremaja);
-                                                    echo $date;
-                                                ?> hari
-                                                @elseif ($data->status=="Batal")
-                                                <?php
-                                                    $date = \Carbon\Carbon::now()->diffInDays($data->tglbatal);
-                                                    echo $date;
-                                                ?> hari
-                                                @endif
+                                                {{$data->waktupengerjaan}} hari
                                             </td>
                                             <td style="width: 10%" class="text-center">
                                                 <div class="btn-group">
@@ -140,10 +120,6 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Tanggal lapor</label>
-                                                                    <input type="date" class="form-control" id="exampleInputEmail1" value="{{$data->tgldg}}" placeholder="Masukkan tanggal..." data-date-format="DD-MM-YYYY" name="tgldg" required>
-                                                                </div>
-                                                                <div class="form-group">
                                                                     <label for="exampleInputPassword1">Nomor DG</label>
                                                                     <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->nodg}}" placeholder="Masukkan nomor DG..." name="nodg" required>
                                                                 </div>
@@ -154,6 +130,14 @@
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">ID pelanggan</label>
                                                                     <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->idpel}}" placeholder="Masukkan id pelanggan..." name="idpel" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Alamat</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->alamat}}" placeholder="Masukkan id alamat..." name="alamat" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Keluhan</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->keluhan}}" placeholder="Masukkan keluhan..." name="keluhan" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -176,6 +160,10 @@
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">No. meter lama</label>
                                                                     <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->nometerlama}}" placeholder="Masukkan no. meter lama..." name="nometerlama" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Perbaikan</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->perbaikan}}" placeholder="Masukkan perbaikan..." name="perbaikan" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -245,14 +233,13 @@
 <script src="../../plugins/datatables/dataTables.bootstrap4.js"></script>
 <script>
     $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
+    $('#example1').DataTable({
         "paging": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "searching": false,
         "ordering": true,
         "info": true,
-        "autoWidth": false
+        "autoWidth": true
     });
     });
 </script>

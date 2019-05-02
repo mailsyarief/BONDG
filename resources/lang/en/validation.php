@@ -147,6 +147,9 @@ return [
             'min' => 'Nomor meter harus 11 digit!',
             'max' => 'Nomor meter harus 11 digit!',
         ],
+        'nodg' => [
+            'unique' => 'Nomor DG sudah ada. Silahkan cari nomor dg lain!',
+        ],
 
     ],
 

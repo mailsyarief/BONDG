@@ -156,9 +156,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="../input-petugas" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
-                            <p>Pegawai</p>
+                            <p>Petugas</p>
                             </a>
                         </li>
                         </ul>
@@ -198,9 +198,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="../input-petugas" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
-                            <p>Pegawai</p>
+                            <p>Petugas</p>
                             </a>
                         </li>
                         </ul>
@@ -232,15 +232,7 @@
                         </ul>
                     </li>
                     @endif
-                    <li class="nav-item">
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                             @csrf
-                             <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">
-                                 <i class="nav-icon fa fa-dashboard"></i>
-                                 <p>Logout</p>
-                             </a>
-                        </form>                     
-                    </li>
+                    
                     
             </nav>
             <!-- /.sidebar-menu -->

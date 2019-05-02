@@ -76,6 +76,10 @@
                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan id pelanggan..." name="idpel" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputPassword1">Alamat</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. hp..." name="alamat" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleInputPassword1">Gardu</label>
                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan gardu..." name="gardu" required>
                                     </div>
@@ -94,6 +98,14 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">No. meter lama</label>
                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama..." name="nometerlama" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Keluhan</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama..." name="keluhan" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Perbaikan</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama..." name="perbaikan" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->                

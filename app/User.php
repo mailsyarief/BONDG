@@ -36,4 +36,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function bondg(){
+        return $this->hasMany(bondg::class, 'id_petugas', 'id');
+    }
 }

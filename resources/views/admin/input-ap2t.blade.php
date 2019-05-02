@@ -69,7 +69,7 @@
                                 </div>   
                                 
                                 @if($count==1)
-                                    @if($norows==1)
+                                    @if($norows==1 && $bondg[0]->noagenda == NULL)
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <table class="table table-bordered">
@@ -133,8 +133,10 @@
                                                 </form>
                                             </div>
                                         </div>  
+                                    @elseif($norows==1 && $bondg[0]->noagenda!=NULL)
+                                        BON DG dengan Nomor DG tersebut sudah diberi nomor agenda!
                                     @else
-                                        No records found
+                                        Data tidak ditemukan!
                                     @endif
                                 @endif                                                    
                             </div>

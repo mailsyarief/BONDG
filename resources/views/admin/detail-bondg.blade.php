@@ -39,48 +39,108 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th>Posko:</th>
-                                    <td>{{$bondg->posko}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tanggal laporan:</th>
-                                    <td>{{$bondg->tgldg}}</td>
-                                </tr>
-                                <tr>
-                                    <th>No. BON DG:</th>
-                                    <td>{{$bondg->nodg}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Nama Pelapor:</th>
-                                    <td>{{$bondg->namapel}}</td>
-                                </tr>
-                                <tr>
-                                    <th>ID Pelanggan:</th>
-                                    <td>{{$bondg->idpel}}</td>
-                                </tr>
-                                <tr>
-                                    <th>No. HP:</th>
-                                    <td>{{$bondg->nohp}}</td>
-                                </tr>
-                                <tr>
-                                    <th>No. Meter Lama:</th>
-                                    <td>{{$bondg->nometerlama}}</td>
-                                </tr> 
-                                <tr>
-                                    <th>Gardu:</th>
-                                    <td>{{$bondg->gardu}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tarif:</th>
-                                    <td>{{$bondg->tarif}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Daya:</th>
-                                    <td>{{$bondg->daya}}</td>
-                                </tr>                             
-                            </table>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Posko:</th>
+                                            <td>{{$bondg->posko}}</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <th>No. BON DG:</th>
+                                            <td>{{$bondg->nodg}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nama Pelapor:</th>
+                                            <td>{{$bondg->namapel}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>ID Pelanggan:</th>
+                                            <td>{{$bondg->idpel}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>No. HP:</th>
+                                            <td>{{$bondg->nohp}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Alamat:</th>
+                                            <td>{{$bondg->alamat}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>No. Meter Lama:</th>
+                                            <td>{{$bondg->nometerlama}}</td>
+                                        </tr>                                          
+                                        <tr>
+                                            <th>No. Meter Baru:</th>
+                                            <td>{{$bondg->nometerbaru}}</td>
+                                        </tr> 
+                                        <tr>
+                                            <th>No. Agenda:</th>
+                                            <td>{{$bondg->noagenda}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gardu:</th>
+                                            <td>{{$bondg->gardu}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tarif:</th>
+                                            <td>{{$bondg->tarif}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Daya:</th>
+                                            <td>{{$bondg->daya}}</td>
+                                        </tr>                             
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Status:</th>
+                                            <td>{{$bondg->status}}</td>
+                                        </tr>
+                                        <tr>
+                                                <th>Tanggal laporan:</th>
+                                                <td><?php echo Carbon\Carbon::createFromDate($bondg->tgldg)->toFormattedDateString(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Cetak PK:</th>
+                                            <td><?php if($bondg->tglpk!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglpk)->toFormattedDateString(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Pengiriman WO:</th>
+                                            <td><?php if($bondg->tglkirimpetugas!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglkirimpetugas)->toFormattedDateString(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Terpasang:</th>
+                                            <td>{{$bondg->namapel}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Remaja:</th>
+                                            <td>{{$bondg->idpel}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Batal:</th>
+                                            <td>{{$bondg->nohp}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Keluhan:</th>
+                                            <td>{{$bondg->keluhan}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Perbaikan:</th>
+                                            <td>{{$bondg->perbaikan}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Petugas:</th>
+                                            <td>{{$bondg->petugas->name}}</td>
+                                        </tr> 
+                                        <tr>
+                                            <th>Waktu Pengerjaan:</th>
+                                            <td>{{$bondg->waktupengerjaan}} hari</td>
+                                        </tr>                            
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.card -->
