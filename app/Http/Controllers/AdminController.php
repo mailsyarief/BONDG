@@ -214,6 +214,7 @@ class AdminController extends Controller
         $bondg = bondg::find($id);
         $bondg->id_petugas = $request->petugas;
         $bondg->status = "Pengiriman WO";
+        $bondg->tglkirimpetugas = Carbon::now();
         $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
         $bondg->save();
         return redirect('/input-petugas')->with('success', 'Petugas berhasil diaktifkan');

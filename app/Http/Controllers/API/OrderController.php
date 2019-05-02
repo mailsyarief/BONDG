@@ -16,7 +16,7 @@ class OrderController extends Controller
         ]);
         $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp pelapor',
             'alamat as alamat_pelapor', 'keluhan', 'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
-            'daya', 'gardu', 'perbaikan' )
+            'daya', 'gardu', 'perbaikan', 'tglkirimpetugas as tgl_kirim_petugas' )
             ->where('id_petugas', '=', $request->id)
             ->get();
 
