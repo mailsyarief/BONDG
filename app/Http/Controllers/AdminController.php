@@ -205,6 +205,7 @@ class AdminController extends Controller
 
     public function register_akun(Request $request)
     {
+        $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
@@ -219,6 +220,7 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'active' => 1,
+            'remember_token' => $token,
         ]);
         return redirect('/register-akun')->with('success', 'Akun Berhasil Didaftarkan');
     }

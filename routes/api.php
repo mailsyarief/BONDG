@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 
 
 Route::post('/order', 'API\OrderController@GetOrder')->name('get.order');
+Route::post('/detailorder', 'API\OrderController@GetDetailOrder')->name('detail.order');
 

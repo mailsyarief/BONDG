@@ -132,7 +132,7 @@
                                         </tr>
                                         <tr>
                                             <th>Petugas:</th>
-                                            @if ($bondg->peserta != NULL)
+                                            @if ($bondg->petugas != NULL)
                                                 <td>{{$bondg->petugas->name}}</td>
                                             @else
                                                 <td></td>
