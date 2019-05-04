@@ -165,7 +165,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-check-square"></i>
                         <p>Remaja</p>
                         </a>
                     </li>
@@ -176,40 +176,11 @@
                         <p>Status</p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-file"></i>
-                        <p>
-                            Status
-                            <i class="right fa fa-angle-left"></i>
-                        </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="../bondg" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>BON DG</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>AP2T</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../input-petugas" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>Petugas</p>
-                            </a>
-                        </li>
-                        </ul>
-                    </li>
                     @if(Auth::user()->role == 1)  
                     <li class="nav-header">MANAJEMEN AKUN</li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-file"></i>
+                        <i class="nav-icon fa fa-users"></i>
                         <p>
                             Akun Petugas
                             <i class="right fa fa-angle-left"></i>
