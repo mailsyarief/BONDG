@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBondgTable extends Migration
+class CreateBondgTableFix extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class CreateBondgTable extends Migration
     public function up()
     {
         Schema::create('bondg', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('posko');
-            $table->string('nodg');
+            $table->string('nodg')->primary();
+            $table->string('posko');            
             $table->string('namapel');
             $table->string('idpel');
             $table->string('nohp');
@@ -27,12 +26,17 @@ class CreateBondgTable extends Migration
             $table->string('nometerlama');
             $table->string('nometerbaru')->nullable();
             $table->date('tgldg');
-            $table->date('tglpk')->nullable();
-            $table->date('tglkirimpetugas')->nullable();
-            $table->date('tglterpasang')->nullable();
-            $table->date('tglremaja')->nullable();
-            $table->date('tglbatal')->nullable();
+            $table->datetime('tglkirimpetugas')->nullable();
+            $table->datetime('tglterpasang')->nullable();
+            $table->datetime('tglremaja')->nullable();
+            $table->datetime('tglbatal')->nullable();
             $table->string('status')->default("Laporan");
+            $table->string('alamat')->nullable();      
+            $table->datetime('tglpk')->nullable();            
+            $table->string('keluhan')->nullable();
+            $table->string('perbaikan')->nullable();
+            $table->integer('id_petugas')->nullable();
+            $table->integer('waktupengerjaan')->default(0);          
             $table->timestamps();
         });
     }

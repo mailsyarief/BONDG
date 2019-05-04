@@ -112,15 +112,15 @@
                                         </tr>
                                         <tr>
                                             <th>Tanggal Terpasang:</th>
-                                            <td>{{$bondg->namapel}}</td>
+                                            <td><?php if($bondg->tglterpasang!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglterpasang)->toFormattedDateString(); ?>
                                         </tr>
                                         <tr>
                                             <th>Tanggal Remaja:</th>
-                                            <td>{{$bondg->idpel}}</td>
+                                            <td><?php if($bondg->tglremaja!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglremaja)->toFormattedDateString(); ?>
                                         </tr>
                                         <tr>
                                             <th>Tanggal Batal:</th>
-                                            <td>{{$bondg->nohp}}</td>
+                                            <td><?php if($bondg->tglbatal!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?>
                                         </tr>
                                         <tr>
                                             <th>Keluhan:</th>
@@ -132,7 +132,11 @@
                                         </tr>
                                         <tr>
                                             <th>Petugas:</th>
-                                            <td>{{$bondg->petugas->name}}</td>
+                                            @if ($bondg->peserta != NULL)
+                                                <td>{{$bondg->petugas->name}}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
                                         </tr> 
                                         <tr>
                                             <th>Waktu Pengerjaan:</th>

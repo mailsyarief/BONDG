@@ -150,6 +150,12 @@ return [
         'nodg' => [
             'unique' => 'Nomor DG sudah ada. Silahkan cari nomor dg lain!',
         ],
+        'datefrom' => [
+            'required' => 'Harap masukkan tanggal awal!',
+        ],
+        'datetill' => [
+            'required' => 'Harap masukkan tanggal akhir!',
+        ],
 
     ],
 

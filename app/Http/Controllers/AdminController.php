@@ -60,6 +60,63 @@ class AdminController extends Controller
         return view('admin.status-bondg', compact('bondg', 'no'));
     }
 
+    public function filter_bondg(Request $request)
+    {   
+        if($request->status != 'Semua Status'){
+            if($request->datefrom != NULL)
+            {
+                $this->validate($request, [
+                    'datetill' => ['required'],
+                ]);
+                $bondg = bondg::where('status', '=', $request->status)
+                ->where("tgldg", '<=',  $request->datetill)
+                ->where("tgldg", '>=',   $request->datefrom)
+                ->get();
+            }
+            else if ($request->datetill != NULL)
+            {
+                $this->validate($request, [
+                    'datefrom' => ['required'],
+                ]);
+                $bondg = bondg::where('status', '=', $request->status)
+                ->where("tgldg", "<=", $request->datetill)
+                ->where("tgldg", ">=", $request->datefrom)
+                ->get();
+            }
+            else
+            {
+                $bondg = bondg::where('status', '=', $request->status)->get();
+            }              
+        }
+        else
+        {
+            if($request->datefrom != NULL)
+            {
+                $this->validate($request, [
+                    'datetill' => ['required'],
+                ]);
+                $bondg = bondg::where("tgldg", "<=",  $request->datetill)
+                ->where("tgldg", ">=", $request->datefrom)
+                ->get();
+            }
+            else if ($request->datetill != NULL)
+            {
+                $this->validate($request, [
+                    'datefrom' => ['required'],
+                ]);
+                $bondg = bondg::where("tgldg", "<=",  $request->datetill)
+                ->where("tgldg", ">=",  $request->datefrom)
+                ->get();
+            }
+            else
+            {
+                $bondg = bondg::all();
+            }
+        }   
+        $no = 1;
+        return view('admin.status-bondg', compact('bondg', 'no'));
+    }
+
     public function detail_bondg(Request $request)
     {
         $id = $request->id;
@@ -129,7 +186,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'noagenda' => ['required', 'string', 'min:18', 'max:18'],
             'nometerbaru' => ['required', 'string', 'min:11', 'max:11'],
-            'noagenda' => ['required', 'unique:nondg'],            
+            'noagenda' => ['required', 'unique:bondg'],            
         ]);
         $bondg->noagenda = $request->noagenda;
         $bondg->nometerbaru = $request->nometerbaru;

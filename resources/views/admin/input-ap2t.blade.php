@@ -127,7 +127,7 @@
                                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter baru..." name="nometerbaru" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" name="id" value="{{$bondg[0]->id}}" hidden>
+                                                        <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
                                                 </form>

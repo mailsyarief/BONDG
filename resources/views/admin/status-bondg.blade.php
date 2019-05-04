@@ -44,23 +44,61 @@
                             </div>                            
                         @endif
                         @include('layouts.alert')
-                        <div class="card">
-                            <div class="card-header">                                
-                                <div class="row">
-                                    <div class="col-1">
-                                        Filter:
-                                    </div>
-                                    <div class="col-4">
-                                        <input type="text" class="form-control" placeholder=".col-4">
-                                    </div>
-                                    <div class="col-2">                                        
-                                        <button type="button" class="btn btn-block btn-outline-info"><i class="fa fa-download"></i> Download</button>
-                                    </div>
+                        <div class="alert bg-white color-palette pb-0"> 
+                            <div class="row" style="padding-bottom: 0">
+                                <div class="col-md-1">
+                                      <label>Filter:</label>  
                                 </div>
-                            </div>                            
+                                <div class="col-md-9">                                    
+                                    <form action="../bondg" method="POST">
+                                    @csrf
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="form-group">                                                                                                                      
+                                                    <label>Range Tanggal:</label> 
+                                                </div>   
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">                                                                                                                      
+                                                    <input class="form-control" type="date" name='datefrom'>
+                                                </div>                                 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">                                                                                                                      
+                                                    <input class="form-control" type="date" name="datetill">
+                                                </div>                                 
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">                                                                                                                      
+                                                    <label>Status:</label> 
+                                                </div>   
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">                                     
+                                                    <select class="form-control select2" style="width: 100%;" name="status">
+                                                        <option>Semua Status</option>
+                                                        <option>Laporan</option>
+                                                        <option>Cetak PK</option>
+                                                        <option>Pengiriman WO</option>
+                                                    </select>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-2">                                         
+                                                <button type="submit" class="btn btn-block btn-outline-info"><i class="fa fa-search"></i> Filter</button>
+                                            </div>
+                                        </div>
+                                    </form>                                    
+                                </div>
+                                <div class="col-md-2">                                        
+                                    <button type="button" class="btn btn-block btn-outline-success"><i class="fa fa-download"></i> Download</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card">                           
                             <!-- /.card-header -->
-                            <div class="card-body">                                
-                                <table id="example1" class="table table-bordered table-striped">
+                            <div class="card-body" style="overflow-x: auto">                                
+                                <table id="example1" class="table table-bordered table-striped" >
                                     <thead>
                                         <tr>
                                             <th style="width: 5%;">No.</th>
@@ -89,17 +127,17 @@
                                                 <div class="btn-group">
                                                 <form action = "../detail-bondg" method="POST">
                                                 @csrf
-                                                    <input type="text" value="{{$data->id}}" name="id" hidden>
+                                                    <input type="text" value="{{$data->nodg}}" name="id" hidden>
                                                     <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
                                                 </form>
-                                                    <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{$data->id}}"><i class="fa fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$data->id}}"><i class="fa fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{$data->nodg}}"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$data->nodg}}"><i class="fa fa-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <div class="modal fade bd-example-modal-lg" id="modalEdit{{$data->id}}"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal fade bd-example-modal-lg" id="modalEdit{{$data->nodg}}"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                <form action="{{url('/edit-bondg/'.$data->id)}}" method="POST">
+                                                <form action="{{url('/edit-bondg/'.$data->nodg)}}" method="POST">
                                                 @csrf
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -176,7 +214,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="modal fade" id="modalDelete{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id="modalDelete{{$data->nodg}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -192,7 +230,7 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                                                         <form action = "../hapus-bondg" method="POST">
                                                         @csrf
-                                                            <input type="text" value="{{$data->id}}" name="id" hidden>
+                                                            <input type="text" value="{{$data->nodg}}" name="id" hidden>
                                                             <button type="submit" class="btn btn-danger">Ya</button>
                                                         </form>
                                                     </div>

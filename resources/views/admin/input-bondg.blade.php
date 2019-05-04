@@ -48,7 +48,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="/bondg">
+                            <form method="POST" action="/input-bondg">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
