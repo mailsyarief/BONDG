@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::get('/test', 'AdminController@test');
 
+
 //Auth::routes();
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
