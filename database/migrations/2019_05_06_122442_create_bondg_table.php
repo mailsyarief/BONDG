@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBondgTableFix extends Migration
+class CreateBondgTable extends Migration
 {
     /**
      * Run the migrations.
@@ -36,7 +36,12 @@ class CreateBondgTableFix extends Migration
             $table->string('keluhan')->nullable();
             $table->string('perbaikan')->nullable();
             $table->integer('id_petugas')->nullable();
-            $table->integer('waktupengerjaan')->default(0);          
+            $table->integer('waktupengerjaan')->default(0); 
+            $table->string('cancel_1')->nullable();  
+            $table->string('cancel_2')->nullable();        
+            $table->string('filename_kwhlama')->nullable();
+            $table->string('filename_kwhbaru')->nullable();    
+            $table->string('filename_ba')->nullable();  
             $table->timestamps();
         });
     }

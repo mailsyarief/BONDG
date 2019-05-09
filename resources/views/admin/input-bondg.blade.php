@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Nomor DG</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan nomor DG..." name="nodg" required>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan nomor DG (8 digit)..." name="nodg" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Nama pelapor</label>
@@ -73,11 +73,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">ID pelanggan</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan id pelanggan..." name="idpel" required>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan id pelanggan (12 digit)..." name="idpel" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Alamat</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. hp..." name="alamat" required>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan alamat..." name="alamat" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Gardu</label>
@@ -85,11 +85,93 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Tarif</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan tarif..." name="tarif" required>
+                                        <select class="form-control select2" style="width: 100%;" name="tarif">
+                                            <option>R1</option>
+                                            <option>R1M</option>
+                                            <option>R2</option>
+                                            <option>R3</option>
+                                            <option>R1T</option>
+                                            <option>R1MT</option>
+                                            <option>R2T</option>
+                                            <option>R3T</option>
+                                            <option>S1</option>
+                                            <option>S2</option>
+                                            <option>S3</option>
+                                            <option>S1T</option>
+                                            <option>S2T</option>
+                                            <option>P1</option>
+                                            <option>P2</option>
+                                            <option>P3</option>
+                                            <option>P1T</option>
+                                            <option>P2T</option>
+                                            <option>P3T</option>
+                                            <option>I1</option>
+                                            <option>I2</option>
+                                            <option>I3</option>
+                                            <option>I1T</option>
+                                            <option>I2T</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Daya</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan daya..." name="daya" required>
+                                        <select class="form-control select2" style="width: 100%;" name="daya">
+                                            <option>450</option>
+                                            <option>900</option>
+                                            <option>1300</option>
+                                            <option>2200</option>
+                                            <option>3500</option>
+                                            <option>4400</option>
+                                            <option>5500</option>
+                                            <option>6600</option>
+                                            <option>7700</option>
+                                            <option>10600</option>
+                                            <option>11000</option>
+                                            <option>13200</option>
+                                            <option>15400</option>
+                                            <option>16500</option>
+                                            <option>17600</option>
+                                            <option>22000</option>
+                                            <option>23000</option>
+                                            <option>27800</option>
+                                            <option>33000</option>
+                                            <option>35200</option>
+                                            <option>41500</option>
+                                            <option>44000</option>
+                                            <option>53000</option>
+                                            <option>66000</option>
+                                            <option>82500</option>
+                                            <option>105000</option>
+                                            <option>131000</option>
+                                            <option>145500</option>
+                                            <option>147000</option>
+                                            <option>164000</option>
+                                            <option>197000</option>
+                                            <option>233000</option>
+                                            <option>240000</option>
+                                            <option>279000</option>
+                                            <option>329000</option>
+                                            <option>345000</option>
+                                            <option>414000</option>
+                                            <option>415000</option>
+                                            <option>526000</option>
+                                            <option>555000</option>
+                                            <option>690000</option>
+                                            <option>865000</option>
+                                            <option>1110000</option>
+                                            <option>1385000</option>
+                                            <option>1455000</option>
+                                            <option>1660000</option>
+                                            <option>1730000</option>
+                                            <option>2180000</option>
+                                            <option>2770000</option>
+                                            <option>3465000</option>
+                                            <option>4330000</option>
+                                            <option>4670000</option>
+                                            <option>5540000</option>
+                                            <option>6930000</option>
+                                            <option>8660000</option>
+                                            <option>10380000</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">No. HP</label>
@@ -97,15 +179,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">No. meter lama</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama..." name="nometerlama" required>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama (11 digit)..." name="nometerlama" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Keluhan</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama..." name="keluhan" required>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan keluhan..." name="keluhan" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Perbaikan</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama..." name="perbaikan" required>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan perbaikan..." name="perbaikan" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->                

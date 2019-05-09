@@ -133,6 +133,14 @@
                         <p>Dashboard</p>
                         </a>
                     </li>
+                    @if(Auth::user()->role == 2)  
+                    <li class="nav-item">
+                        <a href="../status-order" class="nav-link">
+                        <i class="nav-icon fa fa-file"></i>
+                        <p>Status</p>
+                        </a>
+                    </li> 
+                    @endif 
                     @if(Auth::user()->role == 1)  
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -164,19 +172,17 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="remaja" class="nav-link">
                         <i class="nav-icon fa fa-check-square"></i>
                         <p>Remaja</p>
                         </a>
                     </li>
-                    @endif
                     <li class="nav-item">
                         <a href="../bondg" class="nav-link">
                         <i class="nav-icon fa fa-file"></i>
                         <p>Status</p>
                         </a>
-                    </li>
-                    @if(Auth::user()->role == 1)  
+                    </li>                    
                     <li class="nav-header">MANAJEMEN AKUN</li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">

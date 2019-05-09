@@ -55,7 +55,7 @@ class AdminController extends Controller
 
     public function status_bondg()
     {
-        $bondg = bondg::get();
+        $bondg = bondg::orderBy('tgldg', 'desc')->get();
         $no = 1;
         return view('admin.status-bondg', compact('bondg', 'no'));
     }
@@ -277,5 +277,12 @@ class AdminController extends Controller
         $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
         $bondg->save();
         return redirect('/input-petugas')->with('success', 'Petugas berhasil diaktifkan');
+    }
+
+    public function show_remaja()
+    {
+        $bondg = bondg::where('status', '=', 'Terpasang')->get();
+        $no = 1;
+        return view('admin.remaja', compact('bondg', 'no'));
     }
 }

@@ -120,7 +120,7 @@
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">No. agenda</label>
-                                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. agenda..." name="noagenda" required>
+                                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. agenda (18 digit)..." name="noagenda" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">No. meter baru</label>

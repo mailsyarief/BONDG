@@ -12,6 +12,7 @@ class bondg extends Model
         'posko', 'nodg', 'namapel', 'idpel', 'nohp', 
         'gardu', 'tarif', 'daya', 'noagenda', 'nometerlama', 'nometerbaru', 'tgldg', 'tglpk', 'tglkirimpetugas',
         'tglterpasang', 'tglremaja', 'tglbatal', 'status', 'alamat', 'keluhan', 'perbaikan', 'id_petugas', 'waktupengerjaan',
+        'cancel_1', 'cancel_2', 'filename_kwhlama', 'filename_kwhbaru', 'filename_ba', 
     ];
 
     public function petugas(){

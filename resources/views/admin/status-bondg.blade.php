@@ -80,6 +80,8 @@
                                                         <option>Laporan</option>
                                                         <option>Cetak PK</option>
                                                         <option>Pengiriman WO</option>
+                                                        <option>Batal</option>
+                                                        <option>Remajas</option>
                                                     </select>
                                                 </div> 
                                             </div>
