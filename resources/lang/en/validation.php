@@ -149,6 +149,8 @@ return [
         ],
         'nodg' => [
             'unique' => 'Nomor DG sudah ada. Silahkan cari nomor dg lain!',
+            'min' => 'Nomor meter harus 8 digit!',
+            'max' => 'Nomor meter harus 8 digit!',
         ],
         'datefrom' => [
             'required' => 'Harap masukkan tanggal awal!',

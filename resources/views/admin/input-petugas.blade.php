@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('css-ext')
-
+<!-- DataTables -->
+<link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.css">
 @endsection
 @section('content')
-<title>Input | Petugas</title>
+<title>Status | BON DG</title>
 <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -15,8 +16,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">Input</li>
-                            <li class="breadcrumb-item active">Petugas</li>
+                            <li class="breadcrumb-item">Remaja</li>
+                            <li class="breadcrumb-item active">BON DG</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -30,6 +31,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- general form elements -->
+                        <!-- general form elements -->
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -42,110 +44,78 @@
                             </div>                            
                         @endif
                         @include('layouts.alert')
-                        <div class="card card-info">
-                            <div class="card-header">
-                            <h3 class="card-title">Input Petugas</h3>
-                            </div>
+                        <div class="card">                           
                             <!-- /.card-header -->
-                            <!-- form start -->
-                            <div class="card-body">
+                            <div class="card-body" style="overflow-x: auto">                                
+                                <table id="example1" class="table table-bordered table-striped" >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">No.</th>
+                                            <th>Tgl. Laporan</th>
+                                            <th>No. DG</th>
+                                            <th>Nama Pelapor</th>
+                                            <th>ID Pelanggan</th>
+                                            <th>Status</th>
+                                            <th style="width: 30%;">Tambah Petugas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bondg as $data)
+                                        <tr>
+                                            <td style="width: 5%;">{{$no++}}.</td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->toFormattedDateString(); ?></td>
+                                            <td>{{$data->nodg}}</td>
+                                            <td>{{$data->namapel}}</td>
+                                            <td>{{$data->idpel}}</td>
+                                            <td>{{$data->status}}</td>
+                                            <td>                                                    
+                                                <form method="POST" action="../tambah-petugas">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-md-7">
+                                                            <div class="form-group">
+                                                                <select class="form-control select2" style="width: 100%;" name="petugas">
+                                                                @foreach ($petugas as $item)
+                                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                                @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>  
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
+                                                                <button type="submit" class="btn btn-primary btn-sm">Tambah Petugas</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                               
+                                                </form>                                             
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="width: 5%;">No.</th>
+                                            <th>Tgl. Laporan</th>
+                                            <th>No. DG</th>
+                                            <th>Nama Pelapor</th>
+                                            <th>ID Pelanggan</th>
+                                            <th>Status</th>
+                                            <th>Tambah Petugas</th>                                            
+                                        </tr>
+                                    </tfoot>
+                                </table>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Masukkan nomor DG</label>
-                                            <form method="POST" action="/input-petugas">
-                                                @csrf
-                                                <div class="input-group">
-                                                    <div class="custom-file">                                                        
-                                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan nomor DG..." name="nodg" required>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary">Cari</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>                                       
-                                    </div>                                                           
-                                </div>   
-                                
-                                @if($count==1)
-                                    @if($norows==1 && $bondg[0]->noagenda == NULL )
-                                        Silahkan masukkan nomor agenda dah nomor meter baru di menu input AP2T terlebih dahulu! 
-                                    @elseif($norows==1 && $bondg[0]->noagenda!=NULL)
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table class="table table-bordered">
-                                                <tr>
-                                                    <th style="width: 25%">Tanggal laporan:</th>
-                                                    <td>{{$bondg[0]->tgldg}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 25%">No. BON DG:</th>
-                                                    <td>{{$bondg[0]->nodg}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 25%">Nama Pelapor:</th>
-                                                    <td>{{$bondg[0]->namapel}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 25%">ID Pelanggan:</th>
-                                                    <td>{{$bondg[0]->idpel}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 25%">No. Meter Lama:</th>
-                                                    <td>{{$bondg[0]->nometerlama}}</td>
-                                                </tr> 
-                                                <tr>
-                                                    <th style="width: 25%">No. Meter Baru:</th>
-                                                    <td>{{$bondg[0]->nometerbaru}}</td>
-                                                </tr> 
-                                                <tr>
-                                                    <th style="width: 25%">No. Agenda:</th>
-                                                    <td>{{$bondg[0]->noagenda}}</td>
-                                                </tr> 
-                                                <tr>
-                                                    <th style="width: 25%">Alamat:</th>
-                                                    <td>{{$bondg[0]->alamat}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 25%">Keluhan:</th>
-                                                    <td>{{$bondg[0]->keluhan}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width: 25%">Perbaikan:</th>
-                                                    <td>{{$bondg[0]->perbaikan}}</td>
-                                                </tr>                             
-                                            </table>
+                                    <div class="col-md-12">
+                                        <div class="form-group text-center">
+                                            <button type="button" class=" btn btn-success"> Remaja </button>
                                         </div>
-                                        <div class="col-md-6">
-                                            <form method="POST" action="../tambah-petugas">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label>Pilih petugas lapangan</label>
-                                                    <select class="form-control select2" style="width: 100%;" name="petugas">
-                                                    @foreach ($petugas as $item)
-                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
-                                                    <button type="submit" class="btn btn-primary">Tambah Petugas</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div> 
-                                    @else
-                                        Data tidak ditemukan!
-                                    @endif
-                                @endif                                                    
+                                    </div>
+                                </div>
                             </div>
-                            <!-- /.card-body -->                
-                            <div class="card-footer">
-                                
-                            </div>
-                        </div>
-                        <p id="demo"></p>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -156,7 +126,19 @@
 @endsection
 
 @section('js-ext')
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap4.js"></script>
 <script>
-    
+    $(function () {
+    $('#example1').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true
+    });
+    });
 </script>
 @endsection

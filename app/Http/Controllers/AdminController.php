@@ -10,6 +10,8 @@ use \Session;
 use App\bondg;
 use App\User;
 use Carbon\Carbon;
+use Storage;
+use File;
 
 class AdminController extends Controller
 {
@@ -31,7 +33,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'idpel' => ['required', 'string', 'min:12', 'max:12'],
             'nometerlama' => ['required', 'string', 'min:11', 'max:11'],
-            'nodg' => ['required', 'unique:bondg'],
+            'nodg' => ['required', 'unique:bondg',  'min:8', 'max:8'],
         ]);
         $bondg = new bondg;
         $bondg->posko = $request->posko;
@@ -253,18 +255,16 @@ class AdminController extends Controller
 
     public function test()
     {
-        $bondg = bondg::find(1);
-        $date = Carbon::createFromDate($bondg->tglpk)->diffInDays($bondg->tgldg);
-        dd($date);
+              
+        
     }
 
     public function showform_petugas()
     {
-        $norows = 1;
-        $bondg = bondg::get();
-        $count = 0;
+        $bondg = bondg::where('status', '=', 'Cetak PK')->get();
         $petugas = user::where('role', '=', '0')->get();
-        return view('admin.input-petugas', compact('bondg', 'norows', 'count', 'petugas'));
+        $no = 1;
+        return view('admin.input-petugas', compact('bondg', 'no', 'petugas'));
     }
 
     public function tambah_petugas(Request $request)
@@ -276,7 +276,7 @@ class AdminController extends Controller
         $bondg->tglkirimpetugas = Carbon::now();
         $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
         $bondg->save();
-        return redirect('/input-petugas')->with('success', 'Petugas berhasil diaktifkan');
+        return redirect('/input-petugas')->with('success', 'Petugas berhasil ditambahkan');
     }
 
     public function show_remaja()

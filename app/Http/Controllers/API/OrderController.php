@@ -8,6 +8,8 @@ use App\bondg;
 use App\User;
 use Carbon\Carbon;
 use Validator;
+use Storage;
+use File;
 
 class OrderController extends Controller
 {
@@ -181,7 +183,7 @@ class OrderController extends Controller
                 $bondg->save();
                 return response()->json(array(
                     'error' => 0,
-                    'message' => "Berhasil diubah",
+                    'message' => "Pembatalan berhasil diajukan",
                 ), 200);
             }
             else
@@ -193,10 +195,37 @@ class OrderController extends Controller
                 $bondg->save();
                 return response()->json(array(
                     'error' => 0,
-                    'message' => "Berhasil diubah",
+                    'message' => "Pembatalan berhasil diajukan",
                 ), 200);
             }
         }
+        
+    }
+
+    public function 
+    public function test(Request $request)
+    {
+        $uploadedFile = $request->file('file');
+        $originalname = $request->file('file')->getClientOriginalName();
+        $path = $uploadedFile->store('uploads');
+        $alamat = 'files/'.$path;
+        if(Storage::disk('uploads')->put('', $uploadedFile))
+        {
+            return response()->json([
+                'error' => 0,
+                'message' => 'Sudah terupload',
+                'anu' => 'files/'.$path,
+            ]); 
+        }
+        else
+        {
+            return response()->json([
+                'error' => 0,
+                'message' => 'nyaw',
+            ]);
+        }
+              
+
         
     }
 }
