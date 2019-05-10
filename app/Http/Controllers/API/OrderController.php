@@ -40,6 +40,7 @@ class OrderController extends Controller
                         $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
                         $postArray = ['remember_token' => $token];
                         $login = User::where('username',$request->username)->update($postArray);
+                        $user = User::where('username',$request->username)->get();
                         if($login) 
                         {
                             return response()->json([
@@ -52,7 +53,18 @@ class OrderController extends Controller
                     {
                         return response()->json([
                             'error' => 1,
-                            'message' => 'Invalid Password',
+                            'message' => array([
+                                "id"=> 0,
+                                "name" => "-",
+                                "email" => "-",
+                                "email_verified_at" => null,
+                                "remember_token" => "-",
+                                "created_at" => "-",
+                                "updated_at" => "-",
+                                "role" => 0,
+                                "active" => 0,
+                                "username" => "-"
+                            ]),
                         ]);                        
                     } 
                 }
@@ -60,16 +72,38 @@ class OrderController extends Controller
                 {
                     return response()->json([
                         'error' => 1,
-                        'message' => 'Akun anda tidak aktif',
-                    ]); 
+                        'message' => array([
+                            "id"=> 0,
+                            "name" => "-",
+                            "email" => "-",
+                            "email_verified_at" => null,
+                            "remember_token" => "-",
+                            "created_at" => "-",
+                            "updated_at" => "-",
+                            "role" => 0,
+                            "active" => 0,
+                            "username" => "-"
+                        ]),
+                    ]);  
                 }                           
             }
             else
             {
                 return response()->json([
                     'error' => 1,
-                    'message' => 'User not found',
-                ]);
+                    'message' => array([
+                        "id"=> 0,
+                        "name" => "-",
+                        "email" => "-",
+                        "email_verified_at" => null,
+                        "remember_token" => "-",
+                        "created_at" => "-",
+                        "updated_at" => "-",
+                        "role" => 0,
+                        "active" => 0,
+                        "username" => "-"
+                    ]),
+                ]); 
             } 
         }
     }
@@ -201,31 +235,55 @@ class OrderController extends Controller
         }
         
     }
-
-    public function 
-    public function test(Request $request)
+    public function DoOrder(Request $request)
     {
-        $uploadedFile = $request->file('file');
-        $originalname = $request->file('file')->getClientOriginalName();
-        $path = $uploadedFile->store('uploads');
-        $alamat = 'files/'.$path;
-        if(Storage::disk('uploads')->put('', $uploadedFile))
+        $user = User::where('remember_token', $request->token)->where('active', 1)->first();
+        if($user == NULL)
         {
-            return response()->json([
-                'error' => 0,
-                'message' => 'Sudah terupload',
-                'anu' => 'files/'.$path,
-            ]); 
+            return response()->json(['error' => 1,'message' => 'Token Salah!'], 200);  
         }
         else
         {
-            return response()->json([
-                'error' => 0,
-                'message' => 'nyaw',
+            $request->validate([
+                'id_laporan' => 'required',
+                'kwhlama' => 'required',
+                'kwhbaru' => 'required',
+                'beritaacara' => 'required',
             ]);
+            
+            //fetch bondg
+            $bondg = bondg::find($request->id_laporan);
+            
+            //upload
+            $kwhlama = $request->file('kwhlama');
+            $kwhbaru = $request->file('kwhbaru');
+            $beritaacara = $request->file('beritaacara');
+            //get path for 
+            $path1 = $kwhlama->store('uploads');
+            $path2 = $kwhbaru->store('uploads');
+            $path3 = $beritaacara->store('uploads');
+             
+            if((Storage::disk('uploads')->put('uploads', $kwhlama)) && (Storage::disk('uploads')->put('uploads', $kwhbaru)) && (Storage::disk('uploads')->put('uploads', $beritaacara)) )
+            {
+                $bondg->filename_kwhlama = 'files/'.$path1;
+                $bondg->filename_kwhbaru = 'files/'.$path2;
+                $bondg->filename_ba = 'files/'.$path3;  
+                $bondg->status = "Terpasang";
+                $bondg->tglterpasang = Carbon::now();
+                $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+                $bondg->save();
+                return response()->json([
+                    'error' => 0,
+                    'message' => 'Berhasil Upload',
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'error' => 1,
+                    'message' => 'Laporan tidak bisa terupload!',
+                ]);
+            }
         }
-              
-
-        
     }
 }

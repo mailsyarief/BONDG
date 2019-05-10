@@ -1,1 +1,2 @@
-<img src="../files/rriTabM1iz.png">
+<img src="../{{$bondg->filename_kwhlama}}">
+<img src="../{{$bondg->filename_kwhbaru}}">

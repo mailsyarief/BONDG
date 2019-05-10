@@ -84,7 +84,7 @@
                                                         <div class="col-md-5">
                                                             <div class="form-group">
                                                                 <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
-                                                                <button type="submit" class="btn btn-primary btn-sm">Tambah Petugas</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm" style="width:100%; height:auto">Tambah Petugas</button>
                                                             </div>
                                                         </div>
                                                     </div>                                               
@@ -105,13 +105,6 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group text-center">
-                                            <button type="button" class=" btn btn-success"> Remaja </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <!-- /.card-body -->
                           </div>

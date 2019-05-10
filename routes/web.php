@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/test', 'AdminController@test');
+Route::get('/test/{id}', 'AdminController@test');
 
 //Auth::routes();
 

@@ -253,10 +253,10 @@ class AdminController extends Controller
         
     }
 
-    public function test()
+    public function test($id)
     {
-              
-        
+        $bondg = bondg::find($id);
+        return view('test', compact('bondg'));
     }
 
     public function showform_petugas()
