@@ -285,4 +285,12 @@ class AdminController extends Controller
         $no = 1;
         return view('admin.remaja', compact('bondg', 'no'));
     }
+
+    public function remaja(Request $request)
+    {
+        //uhuy
+        foreach ($request->remaja as $key) {
+            echo $key." ";
+        }
+    }
 }

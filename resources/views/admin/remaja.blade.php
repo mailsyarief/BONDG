@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.css">
 @endsection
 @section('content')
-<title>Status | BON DG</title>
+<title>Remaja | BON DG</title>
 <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -46,56 +46,59 @@
                         @include('layouts.alert')
                         <div class="card">                           
                             <!-- /.card-header -->
-                            <div class="card-body" style="overflow-x: auto">                                
-                                <table id="example1" class="table table-bordered table-striped" >
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%;">No.</th>
-                                            <th>Tgl. Laporan</th>
-                                            <th>No. DG</th>
-                                            <th>Nama Pelapor</th>
-                                            <th>ID Pelanggan</th>
-                                            <th>Status</th>
-                                            <th>Check</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($bondg as $data)
-                                        <tr>
-                                            <td style="width: 5%;">{{$no++}}.</td>
-                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->toFormattedDateString(); ?></td>
-                                            <td>{{$data->nodg}}</td>
-                                            <td>{{$data->namapel}}</td>
-                                            <td>{{$data->idpel}}</td>
-                                            <td>{{$data->status}}</td>
-                                            <td style="width: 10%" class="text-center">
-                                                <label>
-                                                    <input type="checkbox" class="flat-red">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th style="width: 5%;">No.</th>
-                                            <th>Tgl. Laporan</th>
-                                            <th>No. DG</th>
-                                            <th>Nama Pelapor</th>
-                                            <th>ID Pelanggan</th>
-                                            <th>Status</th>
-                                            <th>Check</th>                                            
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group text-center">
-                                            <button type="button" class=" btn btn-success"> Remaja </button>
+                            <form acton="../remaja" method="POST">
+                            @csrf
+                                <div class="card-body" style="overflow-x: auto">                                
+                                    <table id="example1" class="table table-bordered table-striped" >
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%;">No.</th>
+                                                <th>Tgl. Laporan</th>
+                                                <th>No. DG</th>
+                                                <th>Nama Pelapor</th>
+                                                <th>ID Pelanggan</th>
+                                                <th>Status</th>
+                                                <th>Check</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($bondg as $data)
+                                            <tr>
+                                                <td style="width: 5%;">{{$no++}}.</td>
+                                                <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->toFormattedDateString(); ?></td>
+                                                <td>{{$data->nodg}}</td>
+                                                <td>{{$data->namapel}}</td>
+                                                <td>{{$data->idpel}}</td>
+                                                <td>{{$data->status}}</td>
+                                                <td style="width: 10%" class="text-center">
+                                                    <label>
+                                                        <input type="checkbox" class="flat-red" name="remaja[]" value="{{$data->nodg}}">
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="width: 5%;">No.</th>
+                                                <th>Tgl. Laporan</th>
+                                                <th>No. DG</th>
+                                                <th>Nama Pelapor</th>
+                                                <th>ID Pelanggan</th>
+                                                <th>Status</th>
+                                                <th>Check</th>                                            
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group text-center">
+                                                <button type="submit" class=" btn btn-success"> Remaja </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                             <!-- /.card-body -->
                           </div>
                           <!-- /.card -->
