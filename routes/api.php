@@ -22,4 +22,4 @@ Route::post('/logout', 'API\OrderController@logout')->name('logout');
 Route::post('/order', 'API\OrderController@GetOrder')->name('get.order');
 Route::post('/detailorder', 'API\OrderController@GetDetailOrder')->name('detail.order');
 Route::post('/cancelorder', 'API\OrderController@CancelOrder')->name('cancel.order');
-Route::post('/test', 'API\OrderController@test')->name('cancel.order');
+Route::post('/doorder', 'API\OrderController@DoOrder')->name('do.order');
