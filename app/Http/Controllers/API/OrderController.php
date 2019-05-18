@@ -53,7 +53,7 @@ class OrderController extends Controller
                     {
                         return response()->json([
                             'error' => 1,
-                            'message' => array([
+                            'message' => [
                                 "id"=> 0,
                                 "name" => "-",
                                 "email" => "-",
@@ -64,7 +64,7 @@ class OrderController extends Controller
                                 "role" => 0,
                                 "active" => 0,
                                 "username" => "-"
-                            ]),
+                            ],
                         ]);                        
                     } 
                 }
@@ -72,7 +72,7 @@ class OrderController extends Controller
                 {
                     return response()->json([
                         'error' => 1,
-                        'message' => array([
+                        'message' => [
                             "id"=> 0,
                             "name" => "-",
                             "email" => "-",
@@ -83,7 +83,7 @@ class OrderController extends Controller
                             "role" => 0,
                             "active" => 0,
                             "username" => "-"
-                        ]),
+                        ],
                     ]);  
                 }                           
             }
@@ -91,7 +91,7 @@ class OrderController extends Controller
             {
                 return response()->json([
                     'error' => 1,
-                    'message' => array([
+                    'message' => [
                         "id"=> 0,
                         "name" => "-",
                         "email" => "-",
@@ -102,7 +102,7 @@ class OrderController extends Controller
                         "role" => 0,
                         "active" => 0,
                         "username" => "-"
-                    ]),
+                    ],
                 ]); 
             } 
         }
@@ -216,10 +216,10 @@ class OrderController extends Controller
             {
                 $bondg->cancel_1 = $request->alasan;
                 $bondg->save();
-                return response()->json(array(
+                return response()->json([
                     'error' => 0,
                     'message' => "Pembatalan berhasil diajukan",
-                ), 200);
+                ]);
             }
             else
             {
@@ -228,10 +228,10 @@ class OrderController extends Controller
                 $bondg->status = "Batal";
                 $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
                 $bondg->save();
-                return response()->json(array(
+                return response()->json([
                     'error' => 0,
                     'message' => "Pembatalan berhasil diajukan",
-                ), 200);
+                ]);
             }
         }
         

@@ -287,10 +287,14 @@ class AdminController extends Controller
     }
 
     public function remaja(Request $request)
-    {
-        //uhuy
+    {        
         foreach ($request->remaja as $key) {
-            echo $key." ";
+            $bondg = bondg::find($key);
+            $bondg->status = "Remaja";
+            $bondg->tglremaja = Carbon::now();
+            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+            $bondg->save();
         }
+        return redirect('/remaja')->with('success', 'Berhasil meremajakan.');
     }
 }
