@@ -64,7 +64,11 @@
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
                                             <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->toFormattedDateString(); ?></td>
-                                            <td>{{$data->nodg}}</td>
+                                            @if (strlen($data->nodg)==7)
+                                                <td>0{{$data->nodg}}</td>
+                                            @else
+                                                <td>{{$data->nodg}}</td>
+                                            @endif    
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
                                             <td>{{$data->status}}</td>
@@ -83,7 +87,11 @@
                                                         </div>  
                                                         <div class="col-md-5">
                                                             <div class="form-group">
-                                                                <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
+                                                                @if (strlen($bondg[0]->nodg)==7)
+                                                                    <input type="text" name="id" value="0{{$bondg[0]->nodg}}" hidden>
+                                                                @else
+                                                                    <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
+                                                                @endif 
                                                                 <button type="submit" class="btn btn-primary btn-sm" style="width:100%; height:auto">Tambah Petugas</button>
                                                             </div>
                                                         </div>

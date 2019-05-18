@@ -12,6 +12,8 @@ use App\User;
 use Carbon\Carbon;
 use Storage;
 use File;
+use Excel;
+use App\Exports\BondgExports;
 
 class AdminController extends Controller
 {
@@ -136,9 +138,9 @@ class AdminController extends Controller
 
     public function edit_bondg(Request $request, $id)
     {
-        $bondg = bondg::find($id);
-        $bondg->posko = $request->posko;
-        $bondg->nodg = $request->nodg;
+		$bondg = bondg::find($id);
+		$bondg->posko = $request->posko;
+        $bondg->nodg = $request->nodg_new;
         $bondg->namapel = $request->namapel;
         $bondg->idpel = $request->idpel;
         $bondg->gardu = $request->gardu;
@@ -151,6 +153,7 @@ class AdminController extends Controller
         $bondg->nometerlama = $request->nometerlama;
         $bondg->save();
         return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');
+       
     }
 
     //ap2t
@@ -232,7 +235,7 @@ class AdminController extends Controller
         $no = 1;
         $akun = user::where('id', '!=', Auth::user()->id)->get();
         return view('admin.akun', compact('no','akun'));
-    }
+    }			
 
     public function activate_akun(Request $request)
     {
@@ -296,5 +299,10 @@ class AdminController extends Controller
             $bondg->save();
         }
         return redirect('/remaja')->with('success', 'Berhasil meremajakan.');
+    }
+    
+    public function ExportBondg()
+    {
+        return Excel::download(new SembakoExport, $nama_file);
     }
 }
