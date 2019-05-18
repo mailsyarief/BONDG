@@ -25,8 +25,20 @@ class OrderController extends Controller
         {
             // Validation failed
             return response()->json([
-              'message' => $validator->messages(),
-            ]);
+                'error' => 1,
+                'message' => [
+                    "id"=> 0,
+                    "name" => "-",
+                    "email" => "-",
+                    "email_verified_at" => null,
+                    "remember_token" => "-",
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now(),
+                    "role" => 0,
+                    "active" => 0,
+                    "username" => "-"
+                ],
+            ]); 
         } 
         else
         {
@@ -47,10 +59,12 @@ class OrderController extends Controller
                                 'error' => 0,
                                 'message' => $user,
                             ]);
+                            
                         }
                     }   
                     else
                     {
+
                         return response()->json([
                             'error' => 1,
                             'message' => [
@@ -59,13 +73,13 @@ class OrderController extends Controller
                                 "email" => "-",
                                 "email_verified_at" => null,
                                 "remember_token" => "-",
-                                "created_at" => "-",
-                                "updated_at" => "-",
+                                "created_at" => Carbon::now(),
+                                "updated_at" => Carbon::now(),
                                 "role" => 0,
                                 "active" => 0,
                                 "username" => "-"
                             ],
-                        ]);                        
+                        ]); 
                     } 
                 }
                 else
@@ -78,13 +92,13 @@ class OrderController extends Controller
                             "email" => "-",
                             "email_verified_at" => null,
                             "remember_token" => "-",
-                            "created_at" => "-",
-                            "updated_at" => "-",
+                            "created_at" => Carbon::now(),
+                            "updated_at" => Carbon::now(),
                             "role" => 0,
                             "active" => 0,
                             "username" => "-"
                         ],
-                    ]);  
+                    ]); 
                 }                           
             }
             else
@@ -97,8 +111,8 @@ class OrderController extends Controller
                         "email" => "-",
                         "email_verified_at" => null,
                         "remember_token" => "-",
-                        "created_at" => "-",
-                        "updated_at" => "-",
+                        "created_at" => Carbon::now(),
+                        "updated_at" => Carbon::now(),
                         "role" => 0,
                         "active" => 0,
                         "username" => "-"
@@ -245,12 +259,12 @@ class OrderController extends Controller
         }
         else
         {
-            $request->validate([
-                'id_laporan' => 'required',
-                'kwhlama' => 'required',
-                'kwhbaru' => 'required',
-                'beritaacara' => 'required',
-            ]);
+            // $request->validate([
+            //     'id_laporan' => 'required',
+            //     'kwhlama' => 'required',
+            //     'kwhbaru' => 'required',
+            //     'beritaacara' => 'required',
+            // ]);
             
             //fetch bondg
             $bondg = bondg::find($request->id_laporan);
@@ -286,5 +300,37 @@ class OrderController extends Controller
                 ]);
             }
         }
+    }
+
+
+    public function kirimnotif($hp_param, $title_param, $body_param){
+        
+        // $hp_param = "fiwMSdIClyY:APA91bHMf6M0SYtw3txQldAwbtMwjWsSzhnguYaoVKXSNPyXfMwOw5GNakCaSy7-e6WlC3KVgV1H2PRPNwdqbthnpf3_2YY2jFICh9rJufnxKWF0D9V1cxIOJrhX_EO_e6PBN0DY_gPH";
+        // $title_param = "Tugas Baru Menanti!";
+        // $body_param = "Ada tugas dikecamatan asem asem";
+
+        $url = "http://fcm.googleapis.com/fcm/send";
+        $token = $hp_param;
+        $serverKey = 'AAAA8LSvV4c:APA91bGOuxL0K4yU1GVBJoXp5hSsnl41l6HYPcdfpGnR1JFtM3jto0Ygf9aGEfOlO_92aETHAcCBrNsG55QFvInuFbCazAqlh2dIub5LhJbSt6C073GBLT3zHTuVcVWXYIR23d6sESRI';
+        $title = $title_param;
+        $body = $body_param;
+        $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
+        $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high');
+        $json = json_encode($arrayToSend);
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Authorization: key='. $serverKey;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
+        //Send the request
+        $response = curl_exec($ch);
+        //Close request
+        if ($response === FALSE) {
+        die('FCM Send Error: ' . curl_error($ch));
+        }
+        curl_close($ch);      
     }
 }
