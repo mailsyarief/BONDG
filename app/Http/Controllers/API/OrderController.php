@@ -40,11 +40,13 @@ class OrderController extends Controller
                         $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
                         $postArray = ['remember_token' => $token];
                         $login = User::where('username',$request->username)->update($postArray);
+                        $user = User::where('username',$request->username)->first();
+
                         if($login) 
                         {
                             return response()->json([
                                 'error' => 0,
-                                'message' => $user->toArray(),
+                                'message' => $user,
                             ]);
                         }
                     }   
@@ -107,7 +109,7 @@ class OrderController extends Controller
         else
         {
             $petugas = User::where('remember_token', $request->token)->where('active', 1)->first();
-            $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp pelapor',
+            $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp_pelapor',
                 'alamat as alamat_pelapor', 'keluhan', 'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
                 'daya', 'gardu', 'perbaikan', 'tglkirimpetugas as tgl_kirim_petugas' )
                 ->where('id_petugas', '=', $petugas->id)
@@ -136,13 +138,14 @@ class OrderController extends Controller
                 'id_laporan' => 'required',
             ]);
             $petugas = User::where('remember_token', $request->token)->where('active', 1)->first();        
-            $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp pelapor',
+            $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp_pelapor',
                 'alamat as alamat_pelapor', 'keluhan', 'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
                 'daya', 'gardu', 'perbaikan', 'tglkirimpetugas as tgl_kirim_petugas' )
                 ->where('nodg', '=', $request->id_laporan)
                 ->get();
             $idpetugas = bondg::where('nodg', '=', $request->id_laporan)->get();
-    
+            
+            
             if( $petugas->id == $idpetugas[0]->id_petugas)
             {
                 return response()->json(array(
@@ -202,7 +205,7 @@ class OrderController extends Controller
         
     }
 
-    public function 
+    
     public function test(Request $request)
     {
         $uploadedFile = $request->file('file');
