@@ -43,5 +43,6 @@ Route::get('/input-petugas', 'AdminController@showform_petugas');
 Route::post('/input-petugas', 'AdminController@search_bondg_2');
 Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
 Route::get('/remaja', 'AdminController@show_remaja');
+Route::post('/remaja', 'AdminController@remaja');
 
 Route::get('/status-order', 'ViewerController@show_status');
