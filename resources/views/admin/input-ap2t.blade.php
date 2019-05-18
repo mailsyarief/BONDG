@@ -83,7 +83,11 @@
                                                     </tr>
                                                     <tr>
                                                         <th style="width: 25%">No. BON DG:</th>
-                                                        <td>{{$bondg[0]->nodg}}</td>
+                                                        @if (strlen($bondg[0]->nodg)==7)
+                                                            <td>0{{$bondg[0]->nodg}}</td>
+                                                        @else
+                                                            <td>{{$bondg[0]->nodg}}</td>
+                                                        @endif 
                                                     </tr>
                                                     <tr>
                                                         <th style="width: 25%">Nama Pelapor:</th>
@@ -127,7 +131,11 @@
                                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter baru..." name="nometerbaru" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
+                                                        @if (strlen($bondg[0]->nodg)==7)
+                                                            <input type="text" name="id" value="0{{$bondg[0]->nodg}}" hidden>
+                                                        @else
+                                                            <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
+                                                        @endif 
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
                                                 </form>

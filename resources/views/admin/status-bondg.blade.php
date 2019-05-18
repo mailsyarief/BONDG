@@ -118,7 +118,13 @@
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
                                             <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->toFormattedDateString(); ?></td>
-                                            <td>{{$data->nodg}}</td>
+                                            <td>
+                                                @if (strlen($data->nodg)==7)
+                                                    0{{$data->nodg}}
+                                                @else
+                                                    {{$data->nodg}}
+                                                @endif                                               
+                                            </td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
                                             <td>{{$data->status}}</td>
@@ -129,7 +135,11 @@
                                                 <div class="btn-group">
                                                 <form action = "../detail-bondg" method="POST">
                                                 @csrf
+                                                @if (strlen($data->nodg)==7)
+                                                    <input type="text" value="0{{$data->nodg}}" name="id" hidden>
+                                                @else 
                                                     <input type="text" value="{{$data->nodg}}" name="id" hidden>
+                                                @endif                                                    
                                                     <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
                                                 </form>
                                                     <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{$data->nodg}}"><i class="fa fa-edit"></i></button>
@@ -139,7 +149,11 @@
                                         </tr>
                                         <div class="modal fade bd-example-modal-lg" id="modalEdit{{$data->nodg}}"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                <form action="{{url('/edit-bondg/'.$data->nodg)}}" method="POST">
+                                                @if (strlen($data->nodg)==7)
+                                                    <form action="{{url('/edit-bondg/0'.$data->nodg)}}" method="POST">
+                                                @else
+                                                    <form action="{{url('/edit-bondg/'.$data->nodg)}}" method="POST">
+                                                @endif
                                                 @csrf
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -153,7 +167,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Posko</label>
-                                                                    <select class="form-control select2" style="width: 100%;" name="posko">
+                                                                    <select class="form-control select2" style="width: 100%;" name="posko" required>
                                                                         <option selected="selected">{{$data->posko}}</option>
                                                                         <option>Labuan</option>
                                                                         <option>Panimbang</option>
@@ -161,7 +175,11 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Nomor DG</label>
-                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->nodg}}" placeholder="Masukkan nomor DG..." name="nodg" required>
+                                                                    @if (strlen($data->nodg)==7)
+                                                                        <input type="text" class="form-control" id="exampleInputPassword1" value="0{{$data->nodg}}" placeholder="Masukkan nomor DG..." name="nodg_new" required>
+                                                                    @else
+                                                                        <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->nodg}}" placeholder="Masukkan nomor DG..." name="nodg_new" required>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Nama pelapor</label>

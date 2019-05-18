@@ -57,7 +57,8 @@
                                                 <th>No. DG</th>
                                                 <th>Nama Pelapor</th>
                                                 <th>ID Pelanggan</th>
-                                                <th>Status</th>
+                                                <th>Petugas</th>
+                                                <th style="width: 15%" >Status</th>
                                                 <th>Check</th>
                                             </tr>
                                         </thead>
@@ -69,13 +70,46 @@
                                                 <td>{{$data->nodg}}</td>
                                                 <td>{{$data->namapel}}</td>
                                                 <td>{{$data->idpel}}</td>
-                                                <td>{{$data->status}}</td>
+                                                <td>{{$data->petugas->name}}</td>
+                                                <td>{{$data->status}} <button type="button" data-toggle="modal" data-target="#modalBA{{$data->nodg}}" class=" btn btn-sm btn-primary"> Lihat Foto Berita Acara </button></td>
                                                 <td style="width: 10%" class="text-center">
                                                     <label>
                                                         <input type="checkbox" class="flat-red" name="remaja[]" value="{{$data->nodg}}">
                                                     </label>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="modalBA{{$data->nodg}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Foto Berita Acara</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {{$data->nodg}}
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-center">
+                                                                    <p class="text-center">Foto KWH Meter Lama</p>
+                                                                    <img src="{{$data->filename_kwhlama}}" style="width:75%"> <br>
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <p class="text-center">Foto KWH Meter Baru</p>
+                                                                    <img src="{{$data->filename_kwhbaru}}" style="width:75%"> <br>
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <p class="text-center">Foto Berita Acara</p>
+                                                                    <img src="{{$data->filename_ba}}" style="width:75%"> <br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>                
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             @endforeach
                                         </tbody>
                                         <tfoot>
@@ -85,6 +119,7 @@
                                                 <th>No. DG</th>
                                                 <th>Nama Pelapor</th>
                                                 <th>ID Pelanggan</th>
+                                                <th>Petugas</th>
                                                 <th>Status</th>
                                                 <th>Check</th>                                            
                                             </tr>
