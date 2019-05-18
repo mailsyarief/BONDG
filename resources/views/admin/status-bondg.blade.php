@@ -60,12 +60,12 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">                                                                                                                      
-                                                    <input class="form-control" type="date" name='datefrom'>
+                                                    <input class="form-control" type="date" name='datefrom' value="{{$datefrom}}">
                                                 </div>                                 
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">                                                                                                                      
-                                                    <input class="form-control" type="date" name="datetill">
+                                                    <input class="form-control" type="date" name="datetill" value="{{$datetill}}">
                                                 </div>                                 
                                             </div>
                                             <div class="col-md-1">
@@ -76,6 +76,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">                                     
                                                     <select class="form-control select2" style="width: 100%;" name="status">
+                                                        <option selected> {{$status}}</option>
                                                         <option>Semua Status</option>
                                                         <option>Laporan</option>
                                                         <option>Cetak PK</option>

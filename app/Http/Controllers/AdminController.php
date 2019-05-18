@@ -59,9 +59,12 @@ class AdminController extends Controller
 
     public function status_bondg()
     {
-        $bondg = bondg::orderBy('tgldg', 'desc')->get();
+		$bondg = bondg::orderBy('tgldg', 'desc')->get();
+		$datefrom = null;
+		$datetill = null;
+		$status = "Semua Status";
         $no = 1;
-        return view('admin.status-bondg', compact('bondg', 'no'));
+        return view('admin.status-bondg', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
     }
 
     public function filter_bondg(Request $request)
@@ -117,8 +120,11 @@ class AdminController extends Controller
                 $bondg = bondg::all();
             }
         }   
-        $no = 1;
-        return view('admin.status-bondg', compact('bondg', 'no'));
+		$no = 1;
+		$datefrom = $request->datefrom;
+		$datetill = $request->datetill;
+		$status = $request->status;
+        return view('admin.status-bondg', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
     }
 
     public function detail_bondg(Request $request)
@@ -152,8 +158,7 @@ class AdminController extends Controller
         $bondg->alamat = $request->alamat;
         $bondg->nometerlama = $request->nometerlama;
         $bondg->save();
-        return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');
-       
+        return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');       
     }
 
     //ap2t
@@ -303,6 +308,7 @@ class AdminController extends Controller
     
     public function ExportBondg()
     {
-        return Excel::download(new SembakoExport, $nama_file);
+		$nama_file = 'laporan_sembako_'.date('Y-m-d_H-i-s').'.xlsx';
+        return Excel::download(new BondgExports, $nama_file);
     }
 }

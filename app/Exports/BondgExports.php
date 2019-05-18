@@ -10,6 +10,8 @@ class BondgExports implements FromView
 {
     public function view(): View
     {
-        return view('status-bondg');
+        return view('admin.status-bondg', [
+            'bondg' => bondg::all(),
+        ]);
     }
 }
