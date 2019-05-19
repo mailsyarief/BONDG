@@ -37,23 +37,31 @@ class AdminController extends Controller
             'nometerlama' => ['required', 'string', 'min:11', 'max:11'],
             'nodg' => ['required', 'unique:bondg',  'min:8', 'max:8'],
         ]);
-        $bondg = new bondg;
-        $bondg->posko = $request->posko;
-        $bondg->tgldg = $request->tgldg;
-        $bondg->nodg = $request->nodg;
-        $bondg->namapel = $request->namapel;
-        $bondg->idpel = $request->idpel;
-        $bondg->gardu = $request->gardu;
-        $bondg->tarif = $request->tarif;
-        $bondg->daya = $request->daya;
-        $bondg->nohp = $request->nohp;
-        $bondg->nometerlama = $request->nometerlama;
-        $bondg->alamat = $request->alamat;
-        $bondg->keluhan = $request->keluhan;
-        $bondg->perbaikan = $request->perbaikan;
-        $bondg->status = "Laporan";
-        $bondg->waktupengerjaan = 0;
-        $bondg->save();
+        DB::BeginTransaction();
+        try{
+            $bondg = new bondg;
+            $bondg->posko = $request->posko;
+            $bondg->tgldg = $request->tgldg;
+            $bondg->nodg = $request->nodg;
+            $bondg->namapel = $request->namapel;
+            $bondg->idpel = $request->idpel;
+            $bondg->gardu = $request->gardu;
+            $bondg->tarif = $request->tarif;
+            $bondg->daya = $request->daya;
+            $bondg->nohp = $request->nohp;
+            $bondg->nometerlama = $request->nometerlama;
+            $bondg->alamat = $request->alamat;
+            $bondg->keluhan = $request->keluhan;
+            $bondg->perbaikan = $request->perbaikan;
+            $bondg->status = "Laporan";
+            $bondg->waktupengerjaan = 0;
+            $bondg->save();
+            DB::commit();
+        } 
+        catch (Exception $e) 
+        {
+            DB::rollback();
+        }
         return redirect('/input-bondg')->with('success', 'BON DG Berhasil Disimpan');
     }
 
@@ -144,20 +152,30 @@ class AdminController extends Controller
 
     public function edit_bondg(Request $request, $id)
     {
-		$bondg = bondg::find($id);
-		$bondg->posko = $request->posko;
-        $bondg->nodg = $request->nodg_new;
-        $bondg->namapel = $request->namapel;
-        $bondg->idpel = $request->idpel;
-        $bondg->gardu = $request->gardu;
-        $bondg->tarif = $request->tarif;
-        $bondg->daya = $request->daya;
-        $bondg->nohp = $request->nohp;
-        $bondg->keluhan = $request->keluhan;
-        $bondg->perbaikan = $request->perbaikan;
-        $bondg->alamat = $request->alamat;
-        $bondg->nometerlama = $request->nometerlama;
-        $bondg->save();
+        DB::BeginTransaction();
+        try{
+            $bondg = bondg::find($id);
+            $bondg->posko = $request->posko;
+            $bondg->nodg = $request->nodg_new;
+            $bondg->namapel = $request->namapel;
+            $bondg->idpel = $request->idpel;
+            $bondg->gardu = $request->gardu;
+            $bondg->tarif = $request->tarif;
+            $bondg->daya = $request->daya;
+            $bondg->nohp = $request->nohp;
+            $bondg->keluhan = $request->keluhan;
+            $bondg->perbaikan = $request->perbaikan;
+            $bondg->alamat = $request->alamat;
+            $bondg->nometerlama = $request->nometerlama;
+            $bondg->save();
+
+            DB::commit();
+        } 
+        catch (Exception $e) 
+        {
+            DB::rollback();
+        }
+		
         return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');       
     }
 
@@ -198,12 +216,21 @@ class AdminController extends Controller
             'nometerbaru' => ['required', 'string', 'min:11', 'max:11'],
             'noagenda' => ['required', 'unique:bondg'],            
         ]);
-        $bondg->noagenda = $request->noagenda;
-        $bondg->nometerbaru = $request->nometerbaru;
-        $bondg->tglpk = now();
-        $bondg->status = "Cetak PK";
-        $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-        $bondg->save();
+        DB::BeginTransaction();
+        try{
+            $bondg->noagenda = $request->noagenda;
+            $bondg->nometerbaru = $request->nometerbaru;
+            $bondg->tglpk = now();
+            $bondg->status = "Cetak PK";
+            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+            $bondg->save();
+
+            DB::commit();
+        } 
+        catch (Exception $e) 
+        {
+            DB::rollback();
+        }        
         return redirect('/input-ap2t')->with('success', 'AP2T Berhasil Disimpan');
     }
 
@@ -248,14 +275,31 @@ class AdminController extends Controller
         $user = user::find($id);
         if ($user->active==1)
         {
-            $user->active=0;
-            $user->save();
+            DB::BeginTransaction();
+            try{
+                $user->active=0;
+                $user->save();
+                DB::commit();
+            } 
+            catch (Exception $e) 
+            {
+                DB::rollback();
+            }   
+            
             return redirect('/daftar-akun')->with('success', 'Akun berhasil dinonaktifkan');
         }
         else
         {
-            $user->active= 1;
-            $user->save();
+            DB::BeginTransaction();
+            try{
+                $user->active= 1;
+                $user->save();
+                DB::commit();
+            } 
+            catch (Exception $e) 
+            {
+                DB::rollback();
+            }              
             return redirect('/daftar-akun')->with('success', 'Akun berhasil diaktifkan');
         }
         
@@ -279,11 +323,20 @@ class AdminController extends Controller
     {
         $id = $request->id;
         $bondg = bondg::find($id);
-        $bondg->id_petugas = $request->petugas;
-        $bondg->status = "Pengiriman WO";
-        $bondg->tglkirimpetugas = Carbon::now();
-        $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-        $bondg->save();
+        DB::BeginTransaction();
+        try{
+            $bondg->id_petugas = $request->petugas;
+            $bondg->status = "Pengiriman WO";
+            $bondg->tglkirimpetugas = Carbon::now();
+            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+            $bondg->save();
+            DB::commit();
+        } 
+        catch (Exception $e) 
+        {
+            DB::rollback();
+        } 
+        
         return redirect('/input-petugas')->with('success', 'Petugas berhasil ditambahkan');
     }
 
@@ -298,10 +351,18 @@ class AdminController extends Controller
     {        
         foreach ($request->remaja as $key) {
             $bondg = bondg::find($key);
-            $bondg->status = "Remaja";
-            $bondg->tglremaja = Carbon::now();
-            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-            $bondg->save();
+            DB::BeginTransaction();
+            try{
+                $bondg->status = "Remaja";
+                $bondg->tglremaja = Carbon::now();
+                $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+                $bondg->save();
+                DB::commit();
+            } 
+            catch (Exception $e) 
+            {
+                DB::rollback();
+            }             
         }
         return redirect('/remaja')->with('success', 'Berhasil meremajakan.');
     }
@@ -311,7 +372,6 @@ class AdminController extends Controller
 		$nama_file = 'laporan_sembako_'.date('Y-m-d_H-i-s').'.xlsx';
         return Excel::download(new BondgExports, $nama_file);
     }
-
 
     private function kirimnotif($hp_param, $title_param, $body_param){
         

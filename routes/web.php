@@ -48,3 +48,6 @@ Route::get('/downloadbondg', 'AdminController@ExportBondg');
 
 Route::get('/status-order', 'ViewerController@show_status');
 Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
+
+route::get('/test', 'API\OrderController@test');
+route::post('/test', 'API\OrderController@testupload');

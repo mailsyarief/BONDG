@@ -228,8 +228,17 @@ class OrderController extends Controller
             $bondg = bondg::find($request->id_laporan);
             if($bondg->cancel_1 == NULL)
             {
-                $bondg->cancel_1 = $request->alasan;
-                $bondg->save();
+                
+                DB::BeginTransaction();
+                try{
+                    $bondg->cancel_1 = $request->alasan;
+                    $bondg->save();
+                    DB::commit();
+                } 
+                catch (Exception $e) 
+                {
+                    DB::rollback();
+                }  
                 return response()->json([
                     'error' => 0,
                     'message' => "Pembatalan berhasil diajukan",
@@ -237,11 +246,19 @@ class OrderController extends Controller
             }
             else
             {
-                $bondg->cancel_2 = $request->alasan;
-                $bondg->tglbatal = Carbon::now();
-                $bondg->status = "Batal";
-                $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-                $bondg->save();
+                DB::BeginTransaction();
+                try{
+                    $bondg->cancel_2 = $request->alasan;
+                    $bondg->tglbatal = Carbon::now();
+                    $bondg->status = "Batal";
+                    $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+                    $bondg->save();
+                    DB::commit();
+                } 
+                catch (Exception $e) 
+                {
+                    DB::rollback();
+                }                  
                 return response()->json([
                     'error' => 0,
                     'message' => "Pembatalan berhasil diajukan",
@@ -332,5 +349,39 @@ class OrderController extends Controller
         die('FCM Send Error: ' . curl_error($ch));
         }
         curl_close($ch);      
+    }
+
+    public function testupload(Request $request)
+    {
+        //fetch bondg
+        $bondg = bondg::find($request->id_laporan);
+            
+        //upload
+        $kwhlama = $request->file('kwhlama');
+        $kwhbaru = $request->file('kwhbaru');
+        $beritaacara = $request->file('beritaacara');
+        //get path for 
+        dd($beritaacara);
+        $path1 = $kwhlama->store('uploads');
+        
+        $path2 = $kwhbaru->store('uploads');
+        $path3 = $beritaacara->store('uploads');
+         
+        if((Storage::disk('uploads')->put('uploads', $kwhlama)) && (Storage::disk('uploads')->put('uploads', $kwhbaru)) && (Storage::disk('uploads')->put('uploads', $beritaacara)) )
+        {
+            $bondg->filename_kwhlama = 'files/'.$path1;
+            $bondg->filename_kwhbaru = 'files/'.$path2;
+            $bondg->filename_ba = 'files/'.$path3;  
+            $bondg->status = "Terpasang";
+            $bondg->tglterpasang = Carbon::now();
+            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+            $bondg->save();
+            
+        }
+    }
+
+    public function test()
+    {
+        return view('test');
     }
 }
