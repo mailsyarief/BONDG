@@ -24,3 +24,5 @@ Route::post('/detailorder', 'API\OrderController@GetDetailOrder')->name('detail.
 Route::post('/cancelorder', 'API\OrderController@CancelOrder')->name('cancel.order');
 Route::post('/doorder', 'API\OrderController@DoOrder')->name('do.order');
 Route::get('/testnotif', 'API\OrderController@kirimnotif');
+
+Route::post('/test', 'API\OrderController@testupload');

@@ -182,6 +182,12 @@
                         <i class="nav-icon fa fa-file"></i>
                         <p>Status</p>
                         </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a href="../penagihan" class="nav-link">
+                        <i class="nav-icon fa fa-money"></i>
+                        <p>Laporan Penagihan</p>
+                        </a>
                     </li>                    
                     <li class="nav-header">MANAJEMEN AKUN</li>
                     <li class="nav-item has-treeview">

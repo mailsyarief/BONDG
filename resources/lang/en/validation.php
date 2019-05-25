@@ -158,6 +158,9 @@ return [
         'datetill' => [
             'required' => 'Harap masukkan tanggal akhir!',
         ],
+        'remaja' => [
+            'required' => 'Tidak ada yang diremajakan!',
+        ],
 
     ],
 

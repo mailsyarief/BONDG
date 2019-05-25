@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Validator;
 use Storage;
 use File;
+use DB;
 
 class OrderController extends Controller
 {
@@ -276,46 +277,23 @@ class OrderController extends Controller
         }
         else
         {
-            // $request->validate([
-            //     'id_laporan' => 'required',
-            //     'kwhlama' => 'required',
-            //     'kwhbaru' => 'required',
-            //     'beritaacara' => 'required',
-            // ]);
-            
-            //fetch bondg
             $bondg = bondg::find($request->id_laporan);
-            
-            //upload
-            $kwhlama = $request->file('kwhlama');
-            $kwhbaru = $request->file('kwhbaru');
-            $beritaacara = $request->file('beritaacara');
-            //get path for 
-            $path1 = $kwhlama->store('uploads');
-            $path2 = $kwhbaru->store('uploads');
-            $path3 = $beritaacara->store('uploads');
-             
-            if((Storage::disk('uploads')->put('uploads', $kwhlama)) && (Storage::disk('uploads')->put('uploads', $kwhbaru)) && (Storage::disk('uploads')->put('uploads', $beritaacara)) )
-            {
-                $bondg->filename_kwhlama = 'files/'.$path1;
-                $bondg->filename_kwhbaru = 'files/'.$path2;
-                $bondg->filename_ba = 'files/'.$path3;  
-                $bondg->status = "Terpasang";
-                $bondg->tglterpasang = Carbon::now();
-                $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-                $bondg->save();
-                return response()->json([
-                    'error' => 0,
-                    'message' => 'Berhasil Upload',
-                ]);
-            }
-            else
-            {
-                return response()->json([
-                    'error' => 1,
-                    'message' => 'Laporan tidak bisa terupload!',
-                ]);
-            }
+
+            $kwhlama = $request->kwhlama;
+            $kwhbaru = $request->kwhbaru;
+            $beritaacara = $request->beritaacara;
+
+            $bondg->filename_kwhlama = $kwhlama;
+            $bondg->filename_kwhbaru = $kwhbaru;
+            $bondg->filename_ba = $beritaacara;
+            $bondg->status = "Terpasang";
+            $bondg->tglterpasang = Carbon::now();
+            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+            $bondg->save();
+            return response()->json([
+                'error' => 0,
+                'message' => 'Berhasil Upload',
+            ]);         
         }
     }
 
@@ -357,27 +335,14 @@ class OrderController extends Controller
         $bondg = bondg::find($request->id_laporan);
             
         //upload
-        $kwhlama = $request->file('kwhlama');
-        $kwhbaru = $request->file('kwhbaru');
-        $beritaacara = $request->file('beritaacara');
-        //get path for 
-        dd($beritaacara);
-        $path1 = $kwhlama->store('uploads');
-        
-        $path2 = $kwhbaru->store('uploads');
-        $path3 = $beritaacara->store('uploads');
-         
-        if((Storage::disk('uploads')->put('uploads', $kwhlama)) && (Storage::disk('uploads')->put('uploads', $kwhbaru)) && (Storage::disk('uploads')->put('uploads', $beritaacara)) )
-        {
-            $bondg->filename_kwhlama = 'files/'.$path1;
-            $bondg->filename_kwhbaru = 'files/'.$path2;
-            $bondg->filename_ba = 'files/'.$path3;  
-            $bondg->status = "Terpasang";
-            $bondg->tglterpasang = Carbon::now();
-            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-            $bondg->save();
-            
-        }
+        $image = $request->kwhlama;
+        $image2 = $request->kwhlama;
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = str_random(10).'.'.'png';
+        File::put(public_path(). '/' . $imageName, base64_decode($image));
+ 
+       
     }
 
     public function test()

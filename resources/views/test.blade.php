@@ -1,4 +1,4 @@
-<form action="../test" method="POST"  enctype="multipart/form-data">
+<form action="../test" method="POST" >
     @csrf
     id laporan
     <input type="text" name="id_laporan">
@@ -10,3 +10,4 @@
     <input type="file" name="beritaacara">
     <button type="submit">submit</button>
 </form>
+<img src="">

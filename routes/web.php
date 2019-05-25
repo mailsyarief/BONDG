@@ -44,10 +44,11 @@ Route::post('/input-petugas', 'AdminController@search_bondg_2');
 Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
 Route::get('/remaja', 'AdminController@show_remaja');
 Route::post('/remaja', 'AdminController@remaja');
-Route::get('/downloadbondg', 'AdminController@ExportBondg');
+Route::post('/downloadbondg', 'AdminController@ExportBondg');
+Route::get('/penagihan', 'AdminController@penagihan');
+
 
 Route::get('/status-order', 'ViewerController@show_status');
 Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
 
 route::get('/test', 'API\OrderController@test');
-route::post('/test', 'API\OrderController@testupload');

@@ -13,8 +13,16 @@ class EditBondgTable1 extends Migration
      */
     public function up()
     {
-        Schema::table('bondgd', function (Blueprint $table) {
-           
+        Schema::table('bondg', function (Blueprint $table) {
+            $table->string('kwhmeterlama_merk')->nullable();
+            $table->string('kwhmeterlama_type')->nullable();
+            $table->string('kwhmeterlama_th')->nullable();
+            $table->string('kwhmeterlama_sisakwh')->nullable();
+            $table->string('kwhmeterbaru_merk')->nullable();
+            $table->string('kwhmeterbaru_type')->nullable();
+            $table->string('kwhmeterbaru_th')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('ts_kwh')->nullable();
         });
     }
 

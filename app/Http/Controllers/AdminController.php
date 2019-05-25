@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 use Illuminate\Support\Facades\Hash;
 use \Auth;
 use \Session;
@@ -348,7 +348,10 @@ class AdminController extends Controller
     }
 
     public function remaja(Request $request)
-    {        
+    {       
+        $this->validate($request, [
+            'remaja' => ['required'],
+        ]);
         foreach ($request->remaja as $key) {
             $bondg = bondg::find($key);
             DB::BeginTransaction();
@@ -367,10 +370,72 @@ class AdminController extends Controller
         return redirect('/remaja')->with('success', 'Berhasil meremajakan.');
     }
     
-    public function ExportBondg()
+    public function ExportBondg(Request $request)
     {
-		$nama_file = 'laporan_sembako_'.date('Y-m-d_H-i-s').'.xlsx';
-        return Excel::download(new BondgExports, $nama_file);
+        if($request->status != 'Semua Status'){
+            if($request->datefrom != NULL)
+            {
+                $this->validate($request, [
+                    'datetill' => ['required'],
+                ]);
+                $bondg = bondg::with('petugas')->where('status', '=', $request->status)
+                ->where("tgldg", '<=',  $request->datetill)
+                ->where("tgldg", '>=',   $request->datefrom)
+                ->get();
+            }
+            else if ($request->datetill != NULL)
+            {
+                $this->validate($request, [
+                    'datefrom' => ['required'],
+                ]);
+                $bondg = bondg::with('petugas')->where('status', '=', $request->status)
+                ->where("tgldg", "<=", $request->datetill)
+                ->where("tgldg", ">=", $request->datefrom)
+                ->get();
+            }
+            else
+            {
+                $bondg = bondg::with('petugas')->where('status', '=', $request->status)->get();
+            }              
+        }
+        else
+        {
+            if($request->datefrom != NULL)
+            {
+                $this->validate($request, [
+                    'datetill' => ['required'],
+                ]);
+                $bondg = bondg::with('petugas')->where("tgldg", "<=",  $request->datetill)
+                ->where("tgldg", ">=", $request->datefrom)
+                ->get();
+            }
+            else if ($request->datetill != NULL)
+            {
+                $this->validate($request, [
+                    'datefrom' => ['required'],
+                ]);
+                $bondg = bondg::with('petugas')->where("tgldg", "<=",  $request->datetill)
+                ->where("tgldg", ">=",  $request->datefrom)
+                ->get();
+            }
+            else
+            {
+                $bondg = bondg::all();
+            }
+        }
+
+		$nama_file = 'laporan_bondg_'.date('Y-m-d_H-i-s').'.xlsx';
+        return Excel::download(new BondgExports($bondg), $nama_file);
+    }
+
+    public function penagihan()
+    {
+        $bondg = bondg::where('status', 'Remaja')->orderBy('tgldg', 'desc')->get();
+		$datefrom = null;
+		$datetill = null;
+		$status = "Remaja";
+        $no = 1;
+        return view('admin.status-bondg', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
     }
 
     private function kirimnotif($hp_param, $title_param, $body_param){
