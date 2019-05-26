@@ -92,15 +92,15 @@
                                                             <div class="row">
                                                                 <div class="col-md-12 text-center">
                                                                     <p class="text-center">Foto KWH Meter Lama</p>
-                                                                    <img src="{{$data->filename_kwhlama}}" style="width:75%"> <br>
+                                                                    <img src="data:image/jpeg;base64, {{$data->filename_kwhlama}}" style="width:50%"> <br>
                                                                 </div>
                                                                 <div class="col-md-12 text-center">
                                                                     <p class="text-center">Foto KWH Meter Baru</p>
-                                                                    <img src="{{$data->filename_kwhbaru}}" style="width:75%"> <br>
+                                                                    <img src="data:image/jpeg;base64, {{$data->filename_kwhbaru}}" style="width:50%"> <br>
                                                                 </div>
                                                                 <div class="col-md-12 text-center">
                                                                     <p class="text-center">Foto Berita Acara</p>
-                                                                    <img src="{{$data->filename_ba}}" style="width:75%"> <br>
+                                                                    <img src="data:image/jpeg;base64, {{$data->filename_ba}}" style="width:50%"> <br>
                                                                 </div>
                                                             </div>
                                                         </div>
