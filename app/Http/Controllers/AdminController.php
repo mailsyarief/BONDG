@@ -14,6 +14,7 @@ use Storage;
 use File;
 use Excel;
 use App\Exports\BondgExports;
+use App\Exports\PenagihanExports;
 
 class AdminController extends Controller
 {

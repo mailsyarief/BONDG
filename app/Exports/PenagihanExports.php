@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class BondgExports implements FromView, ShouldAutoSize, WithEvents, WithColumnFormatting
+class PenagihanExports implements FromView, ShouldAutoSize, WithEvents, WithColumnFormatting
 {
     private $data;
 
@@ -34,14 +34,14 @@ class BondgExports implements FromView, ShouldAutoSize, WithEvents, WithColumnFo
         return [
             AfterSheet::class    => function(AfterSheet $event) {
                 //merge for title
-                $event->sheet->getDelegate()->mergeCells('A1:A2');
-                $event->sheet->getDelegate()->setCellValue('A1','NO.');
+                $event->sheet->getDelegate()->mergeCells('A1:AA1');
+                $event->sheet->getDelegate()->setCellValue('A1','LAPORAN PERIODIK MPB RUSAK');
                 
 
                 //$event->sheet->getDelegate()->getStyle('A1:O2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER)->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 //$row = count($this->data) + 2;
                 // All headers - set font size to 14
-                $cellRange = 'A1:O'.$row; 
+               
 
 
                 // Apply array of styles to B2:G8 cell range
@@ -53,7 +53,7 @@ class BondgExports implements FromView, ShouldAutoSize, WithEvents, WithColumnFo
                     ]
                 ];
                 
-                $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                
                 
             },
         ];

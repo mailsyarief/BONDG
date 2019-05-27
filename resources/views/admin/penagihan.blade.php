@@ -79,11 +79,8 @@
                                     </form>                                    
                                 </div>
                                 <div class="col-md-2">
-                                    <form action="../downloadbondg" method="POST">
+                                    <form action="../downloadpenagihan" method="POST">
                                         @csrf
-                                        <input class="form-control" type="date" name='datefrom' value="{{$datefrom}}" hidden>
-                                        <input class="form-control" type="date" name="datetill" value="{{$datetill}}" hidden>
-                                        <input class="form-control" type="text" name="status" value="{{$status}}" hidden>
                                         <button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-download"></i> Download</button>
                                     </form>                                      
                                     
