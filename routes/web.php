@@ -46,6 +46,7 @@ Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
 Route::get('/remaja', 'AdminController@show_remaja');
 Route::post('/remaja', 'AdminController@remaja');
 Route::post('/downloadbondg', 'AdminController@ExportBondg');
+Route::post('/downloadpenagihan', 'AdminController@ExportPenagihan');
 Route::get('/penagihan', 'AdminController@penagihan');
 
 

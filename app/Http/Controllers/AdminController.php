@@ -323,6 +323,7 @@ class AdminController extends Controller
     public function tambah_petugas(Request $request)
     {
         $id = $request->id;
+        $petugas = user::find($request->petugas);
         $bondg = bondg::find($id);
         DB::BeginTransaction();
         try{
@@ -339,9 +340,9 @@ class AdminController extends Controller
         } 
 
         //buat kirim notif
-        $token = "fY9iiW68hfw:APA91bH-7Vvie5TzQGWRswBbswW6kuDzn3iqX04FOIrz2J60FFalBeb8W9k9oX1ZQr3iiAvFUvNs9_PPmLNNWv5jJZFZMlGLIBh69QZQjeY3S76C3En9SEkPv3uz_QPoO8STz0V73O9S";
+        $token = $petugas->token_hp;        
         $head = "Ada tugas baru!";
-        $body = "tugasnya disini cok";
+        $body = "Rincian tugas:\nNama Pelanggan: ".$bondg->namapel."\nAlamat Pelanggan: ".$bondg->alamat;
         $this->kirimnotif($token, $head, $body);
         
         return redirect('/input-petugas')->with('success', 'Petugas berhasil ditambahkan');
@@ -443,6 +444,14 @@ class AdminController extends Controller
 		$status = "Terpasang";
         $no = 1;
         return view('admin.penagihan', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
+    }
+
+    public function ExportPenagihan(Request $request)
+    {
+        $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+
+		$nama_file = 'laporan_penagihan_'.date('Y-m-d_H-i-s').'.xlsx';
+        return Excel::download(new PenagihanExports($bondg), $nama_file);
     }
 
     private function kirimnotif($hp_param, $title_param, $body_param){

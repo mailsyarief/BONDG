@@ -227,43 +227,53 @@ class OrderController extends Controller
             ]);
     
             $bondg = bondg::find($request->id_laporan);
-            if($bondg->cancel_1 == NULL)
+            if($bondg==null)
             {
-                
-                DB::BeginTransaction();
-                try{
-                    $bondg->cancel_1 = $request->alasan;
-                    $bondg->save();
-                    DB::commit();
-                } 
-                catch (Exception $e) 
-                {
-                    DB::rollback();
-                }  
                 return response()->json([
-                    'error' => 0,
-                    'message' => "Pembatalan berhasil diajukan",
+                    'error' => 1,
+                    'message' => 'BON DG tidak ditemukan!',
                 ]);
             }
             else
             {
-                DB::BeginTransaction();
-                try{
-                    $bondg->cancel_2 = $request->alasan;
-                    $bondg->tglbatal = Carbon::now();
-                    $bondg->status = "Batal";
-                    $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-                    $bondg->save();
-                    DB::commit();
-                } 
-                catch (Exception $e) 
+                if($bondg->cancel_1 == NULL)
                 {
-                    DB::rollback();
-                }                  
-                return response()->json([
-                    'error' => 0,
-                    'message' => "Pembatalan berhasil diajukan",
-                ]);
+                    
+                    DB::BeginTransaction();
+                    try{
+                        $bondg->cancel_1 = $request->alasan;
+                        $bondg->save();
+                        DB::commit();
+                    } 
+                    catch (Exception $e) 
+                    {
+                        DB::rollback();
+                    }  
+                    return response()->json([
+                        'error' => 0,
+                        'message' => "Pembatalan berhasil diajukan",
+                    ]);
+                }
+                else
+                {
+                    DB::BeginTransaction();
+                    try{
+                        $bondg->cancel_2 = $request->alasan;
+                        $bondg->tglbatal = Carbon::now();
+                        $bondg->status = "Batal";
+                        $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+                        $bondg->save();
+                        DB::commit();
+                    } 
+                    catch (Exception $e) 
+                    {
+                        DB::rollback();
+                    }                  
+                    return response()->json([
+                        'error' => 0,
+                        'message' => "Pembatalan berhasil diajukan",
+                    ]);
+                }
             }
         }
         

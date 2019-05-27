@@ -14,7 +14,7 @@ class EditUsersTable2 extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('token_hp')->nullable();
+            $table->mediumText('token_hp')->nullable()->change();
         });
     }
 
