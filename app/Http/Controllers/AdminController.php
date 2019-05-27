@@ -189,11 +189,9 @@ class AdminController extends Controller
 
     public function search_bondg(Request $request)
     {
-        $nobondg = $request->nodg;
-        $bondg= bondg::where('nodg', '=', $nobondg)->get();
-        $norows = count($bondg);
-        $count = 1;
-        return view('admin.input-ap2t', compact('bondg', 'norows', 'count'));
+        $nobondg = $request->id;
+        $bondg= bondg::find($nobondg);
+        return view('admin.form-ap2t', compact('bondg'));
     }
 
     //petugas
@@ -221,6 +219,9 @@ class AdminController extends Controller
             $bondg->noagenda = $request->noagenda;
             $bondg->nometerbaru = $request->nometerbaru;
             $bondg->tglpk = now();
+            $bondg->kwhmeterbaru_merk = $request->merk;
+            $bondg->kwhmeterbaru_type = $request->type;
+            $bondg->kwhmeterbaru_th = $request->tahun;
             $bondg->status = "Cetak PK";
             $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
             $bondg->save();

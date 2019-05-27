@@ -89,7 +89,23 @@
                                         <tr>
                                             <th>Daya:</th>
                                             <td>{{$bondg->daya}}</td>
-                                        </tr>                             
+                                        </tr>
+                                        <tr>
+                                            <th>Merek KWH Meter Lama:</th>
+                                            <td>{{$bondg->kwhmeterlama_merk}}</td>
+                                        </tr>  
+                                        <tr>
+                                            <th>Type KWH Meter Lama:</th>
+                                            <td>{{$bondg->kwhmeterlama_type}}</td>
+                                        </tr>  
+                                        <tr>
+                                            <th>Tahun Buat KWH Meter Lama:</th>
+                                            <td>{{$bondg->kwhmeterlama_th}}</td>
+                                        </tr>       
+                                        <tr>
+                                            <th>Sisa KWH Meter Lama:</th>
+                                            <td>{{$bondg->kwhmeterlama_sisakwh}}</td>
+                                        </tr>                          
                                     </table>
                                 </div>
                                 <div class="col-md-6">
@@ -102,26 +118,45 @@
                                                 <th>Tanggal laporan:</th>
                                                 <td><?php echo Carbon\Carbon::createFromDate($bondg->tgldg)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        @if($bondg->status != "Laporan")
                                         <tr>
                                             <th>Tanggal Cetak PK:</th>
                                             <td><?php if($bondg->tglpk!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglpk)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        @endif
+                                        @if($bondg->status != "Laporan" && $bondg->status != "Cetak PK" )
                                         <tr>
                                             <th>Tanggal Pengiriman WO:</th>
                                             <td><?php if($bondg->tglkirimpetugas!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglkirimpetugas)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        @endif
+                                        @if($bondg->status == "Terpasang" || $bondg->status == "Remaja")
                                         <tr>
                                             <th>Tanggal Terpasang:</th>
-                                            <td><?php if($bondg->tglterpasang!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglterpasang)->toFormattedDateString(); ?>
+                                            <td><?php if($bondg->tglterpasang!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglterpasang)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        @endif
+                                        @if($bondg->status == "Remaja")
                                         <tr>
                                             <th>Tanggal Remaja:</th>
-                                            <td><?php if($bondg->tglremaja!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglremaja)->toFormattedDateString(); ?>
+                                            <td><?php if($bondg->tglremaja!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglremaja)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        @endif
+                                        @if($bondg->status == "Batal")
                                         <tr>
                                             <th>Tanggal Batal:</th>
-                                            <td><?php if($bondg->tglbatal!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?>
+                                            <td><?php if($bondg->tglbatal!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        <tr>
+                                            <th>Alasan Batal 1:</th>
+                                            <td>{{$bondg->cancel_1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Alasan Batal 2:</th>
+                                            <td>{{$bondg->cancel_2}}</td>
+                                        </tr>
+                                        @endif
+                                       
                                         <tr>
                                             <th>Keluhan:</th>
                                             <td>{{$bondg->keluhan}}</td>
@@ -141,6 +176,18 @@
                                         <tr>
                                             <th>Waktu Pengerjaan:</th>
                                             <td>{{$bondg->waktupengerjaan}} hari</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Merek KWH Meter Baru:</th>
+                                            <td>{{$bondg->kwhmeterbaru_merk}}</td>
+                                        </tr>  
+                                        <tr>
+                                            <th>Type KWH Meter Baru:</th>
+                                            <td>{{$bondg->kwhmeterbaru_type}}</td>
+                                        </tr>  
+                                        <tr>
+                                            <th>Tahun Buat KWH Meter Baru:</th>
+                                            <td>{{$bondg->kwhmeterbaru_th}}</td>
                                         </tr>                            
                                     </table>
                                 </div>

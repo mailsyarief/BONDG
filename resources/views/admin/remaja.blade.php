@@ -71,7 +71,7 @@
                                                 <td>{{$data->namapel}}</td>
                                                 <td>{{$data->idpel}}</td>
                                                 <td>{{$data->petugas->name}}</td>
-                                                <td>{{$data->status}} <button type="button" data-toggle="modal" data-target="#modalBA{{$data->nodg}}" class=" btn btn-sm btn-primary"> Lihat Foto Berita Acara </button></td>
+                                                <td>{{$data->status}} <br><button type="button" data-toggle="modal" data-target="#modalBA{{$data->nodg}}" class=" btn btn-sm btn-primary"> Lihat Foto Berita Acara </button></td>
                                                 <td style="width: 10%" class="text-center">
                                                     <label>
                                                         <input type="checkbox" class="flat-red" name="remaja[]" value="{{$data->nodg}}">

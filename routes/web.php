@@ -33,7 +33,8 @@ Route::post('/input-bondg', 'AdminController@input_bondg');
 Route::post('/detail-bondg', 'AdminController@detail_bondg');
 Route::post('/hapus-bondg', 'AdminController@hapus_bondg');
 Route::post('/edit-bondg/{id}', 'AdminController@edit_bondg');
-Route::post('/input-ap2t', 'AdminController@search_bondg');
+
+Route::post('/form-ap2t', 'AdminController@search_bondg');
 Route::post('/tambah-ap2t', 'AdminController@input_ap2t');
 Route::get('/register-akun', 'AdminController@showform_akun');
 Route::post('/register-akun', 'AdminController@register_akun');

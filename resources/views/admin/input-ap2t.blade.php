@@ -1,17 +1,18 @@
 @extends('layouts.dashboard')
 
 @section('css-ext')
-
+<!-- DataTables -->
+<link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.css">
 @endsection
 @section('content')
-<title>Input | AP2T</title>
+<title>Status | BON DG</title>
 <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        
+                        <h1 class="m-0 text-dark">Input AP2T</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -30,6 +31,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- general form elements -->
+                        <!-- general form elements -->
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -42,118 +44,73 @@
                             </div>                            
                         @endif
                         @include('layouts.alert')
-                        <div class="card card-info">
-                            <div class="card-header">
-                            <h3 class="card-title">Input AP2T</h3>
-                            </div>
+                        <div class="card">                           
                             <!-- /.card-header -->
-                            <!-- form start -->
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Masukkan nomor DG</label>
-                                            <form method="POST" action="/input-ap2t">
-                                                @csrf
-                                                <div class="input-group">
-                                                    <div class="custom-file">                                                        
-                                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan nomor DG..." name="nodg" required>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary">Cari</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>                                       
-                                    </div>                                                           
-                                </div>   
-                                
-                                @if($count==1)
-                                    @if($norows==1 && $bondg[0]->noagenda == NULL)
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <th style="width: 25%">Posko:</th>
-                                                        <td>{{$bondg[0]->posko}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">Tanggal laporan:</th>
-                                                        <td>{{$bondg[0]->tgldg}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">No. BON DG:</th>
-                                                        @if (strlen($bondg[0]->nodg)==7)
-                                                            <td>0{{$bondg[0]->nodg}}</td>
-                                                        @else
-                                                            <td>{{$bondg[0]->nodg}}</td>
-                                                        @endif 
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">Nama Pelapor:</th>
-                                                        <td>{{$bondg[0]->namapel}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">ID Pelanggan:</th>
-                                                        <td>{{$bondg[0]->idpel}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">No. HP:</th>
-                                                        <td>{{$bondg[0]->nohp}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">No. Meter Lama:</th>
-                                                        <td>{{$bondg[0]->nometerlama}}</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <th style="width: 25%">Gardu:</th>
-                                                        <td>{{$bondg[0]->gardu}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">Tarif:</th>
-                                                        <td>{{$bondg[0]->tarif}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="width: 25%">Daya:</th>
-                                                        <td>{{$bondg[0]->daya}}</td>
-                                                    </tr>                             
-                                                </table>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <form method="POST" action="../tambah-ap2t">
+                            <div class="card-body" style="overflow-x: auto">                                
+                                <table id="example1" class="table table-bordered table-striped" >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">No.</th>
+                                            <th>Tgl. Laporan</th>
+                                            <th>No. DG</th>
+                                            <th>Nama Pelapor</th>
+                                            <th>ID Pelanggan</th>
+                                            <th>Status</th>
+                                            <th style="width: 10%;">Waktu Pengerjaan</th>
+                                            <th>Pilihan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bondg as $data)
+                                        <tr>
+                                            <td style="width: 5%;">{{$count++}}.</td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d M Y');?></td>
+                                            <td>
+                                                @if (strlen($data->nodg)==7)
+                                                    0{{$data->nodg}}
+                                                @else
+                                                    {{$data->nodg}}
+                                                @endif                                               
+                                            </td>
+                                            <td>{{$data->namapel}}</td>
+                                            <td>{{$data->idpel}}</td>
+                                            <td>{{$data->status}}</td>
+                                            <td>
+                                                {{$data->waktupengerjaan}} hari
+                                            </td>
+                                            <td style="width: 10%" class="text-center">
+                                                <div class="btn-group">
+                                                    <form action = "../form-ap2t" method="POST">
                                                     @csrf
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">No. agenda</label>
-                                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. agenda (18 digit)..." name="noagenda" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">No. meter baru</label>
-                                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter baru..." name="nometerbaru" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @if (strlen($bondg[0]->nodg)==7)
-                                                            <input type="text" name="id" value="0{{$bondg[0]->nodg}}" hidden>
-                                                        @else
-                                                            <input type="text" name="id" value="{{$bondg[0]->nodg}}" hidden>
-                                                        @endif 
-                                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>  
-                                    @elseif($norows==1 && $bondg[0]->noagenda!=NULL)
-                                        BON DG dengan Nomor DG tersebut sudah diberi nomor agenda!
-                                    @else
-                                        Data tidak ditemukan!
-                                    @endif
-                                @endif                                                    
+                                                    @if (strlen($data->nodg)==7)
+                                                        <input type="text" value="0{{$data->nodg}}" name="id" hidden>
+                                                    @else 
+                                                        <input type="text" value="{{$data->nodg}}" name="id" hidden>
+                                                    @endif                                                    
+                                                        <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Input AP2T</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="width: 5%;">No.</th>
+                                            <th>Tgl. Laporan</th>
+                                            <th>No. DG</th>
+                                            <th>Nama Pelapor</th>
+                                            <th>ID Pelanggan</th>
+                                            <th>Status</th>
+                                            <th>Waktu Pengerjaan</th>
+                                            <th>Pilihan</th>                                            
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <!-- /.card-body -->                
-                            <div class="card-footer">
-                                
-                            </div>
-                        </div>
-                        <p id="demo"></p>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -164,11 +121,19 @@
 @endsection
 
 @section('js-ext')
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap4.js"></script>
 <script>
-    var cars = ["hai", "bye"];
-
- 
-
-console.log(cars);
+    $(function () {
+    $('#example1').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true
+    });
+    });
 </script>
 @endsection
