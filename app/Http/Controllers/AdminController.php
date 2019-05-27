@@ -336,6 +336,9 @@ class AdminController extends Controller
         {
             DB::rollback();
         } 
+
+        //buat kirim notif
+        kirimnotif();
         
         return redirect('/input-petugas')->with('success', 'Petugas berhasil ditambahkan');
     }
