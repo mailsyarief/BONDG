@@ -51,7 +51,7 @@ class OrderController extends Controller
                     if( password_verify($request->password, $user->password) )
                     {
                         $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
-                        $postArray = ['remember_token' => $token];
+                        $postArray = ['remember_token' => $token, 'token_hp'=> $request->token_hp];
                         $login = User::where('username',$request->username)->update($postArray);
                         $user = User::where('username',$request->username)->first();
                         if($login) 
@@ -281,19 +281,26 @@ class OrderController extends Controller
 
             $kwhlama = $request->kwhlama;
             $kwhbaru = $request->kwhbaru;
-            $beritaacara = $request->beritaacara;
-
-            $bondg->filename_kwhlama = $kwhlama;
-            $bondg->filename_kwhbaru = $kwhbaru;
-            $bondg->filename_ba = $beritaacara;
-            $bondg->status = "Terpasang";
-            $bondg->tglterpasang = Carbon::now();
-            $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
-            $bondg->save();
+            $beritaacara = $request->beritaacara;           
+               
+            DB::BeginTransaction();
+            try{
+                $bondg->filename_kwhlama = $kwhlama;
+                $bondg->filename_kwhbaru = $kwhbaru;
+                $bondg->filename_ba = $beritaacara;
+                $bondg->status = "Terpasang";
+                $bondg->tglterpasang = Carbon::now();
+                $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+                $bondg->save();
+            } 
+            catch (Exception $e) 
+            {
+                DB::rollback();
+            }    
             return response()->json([
                 'error' => 0,
                 'message' => 'Berhasil Upload',
-            ]);         
+            ]);   
         }
     }
 
@@ -329,24 +336,8 @@ class OrderController extends Controller
         curl_close($ch);      
     }
 
-    public function testupload(Request $request)
-    {
-        //fetch bondg
-        $bondg = bondg::find($request->id_laporan);
-            
-        //upload
-        $image = $request->kwhlama;
-        $image2 = $request->kwhlama;
-        $image = str_replace('data:image/png;base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName = str_random(10).'.'.'png';
-        File::put(public_path(). '/' . $imageName, base64_decode($image));
- 
-       
-    }
-
     public function test()
     {
-        return view('test');
+        return view('admin.exp-penagihan');
     }
 }

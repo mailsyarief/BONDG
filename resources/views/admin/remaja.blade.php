@@ -88,7 +88,6 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            {{$data->nodg}}
                                                             <div class="row">
                                                                 <div class="col-md-12 text-center">
                                                                     <p class="text-center">Foto KWH Meter Lama</p>

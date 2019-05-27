@@ -430,12 +430,12 @@ class AdminController extends Controller
 
     public function penagihan()
     {
-        $bondg = bondg::where('status', 'Remaja')->orderBy('tgldg', 'desc')->get();
+        $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
 		$datefrom = null;
 		$datetill = null;
-		$status = "Remaja";
+		$status = "Terpasang";
         $no = 1;
-        return view('admin.status-bondg', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
+        return view('admin.penagihan', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
     }
 
     private function kirimnotif($hp_param, $title_param, $body_param){

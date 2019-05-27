@@ -5,19 +5,18 @@
 <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.css">
 @endsection
 @section('content')
-<title>Status | BON DG</title>
+<title>Laporan Penagihan | BON DG</title>
 <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Status BON DG</h1>
+                        <h1 class="m-0 text-dark">Laporan Penagihan</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">Status</li>
-                            <li class="breadcrumb-item active">BON DG</li>
+                            <li class="breadcrumb-item active">Penagihan</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -73,19 +72,6 @@
                                                     <label>Status:</label> 
                                                 </div>   
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">                                     
-                                                    <select class="form-control select2" style="width: 100%;" name="status">
-                                                        <option selected> {{$status}}</option>
-                                                        <option>Semua Status</option>
-                                                        <option>Laporan</option>
-                                                        <option>Cetak PK</option>
-                                                        <option>Pengiriman WO</option>
-                                                        <option>Batal</option>
-                                                        <option>Remaja</option>
-                                                    </select>
-                                                </div> 
-                                            </div>
                                             <div class="col-md-2">                                         
                                                 <button type="submit" class="btn btn-block btn-outline-info"><i class="fa fa-search"></i> Filter</button>
                                             </div>
@@ -113,9 +99,11 @@
                                         <tr>
                                             <th style="width: 5%;">No.</th>
                                             <th>Tgl. Laporan</th>
+                                            <th>Tgl. Terpasang</th>
                                             <th>No. DG</th>
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
+                                            <th>Nama Petugas</th>
                                             <th>Status</th>
                                             <th style="width: 10%;">Waktu Pengerjaan</th>
                                             <th>Pilihan</th>
@@ -126,6 +114,7 @@
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
                                             <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d M Y');?></td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tglterpasang)->format('d M Y');?></td>
                                             <td>
                                                 @if (strlen($data->nodg)==7)
                                                     0{{$data->nodg}}
@@ -135,6 +124,7 @@
                                             </td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
+                                            <td>{{$data->petugas->name}}</td>
                                             <td>{{$data->status}}</td>
                                             <td>
                                                 {{$data->waktupengerjaan}} hari
@@ -148,10 +138,8 @@
                                                 @else 
                                                     <input type="text" value="{{$data->nodg}}" name="id" hidden>
                                                 @endif                                                    
-                                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
-                                                </form>
-                                                    <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{$data->nodg}}"><i class="fa fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$data->nodg}}"><i class="fa fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Lihat Detail</button>
+                                                </form>                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -274,6 +262,7 @@
                                             <th>No. DG</th>
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
+                                            <th>Nama Petugas</th>
                                             <th>Status</th>
                                             <th>Waktu Pengerjaan</th>
                                             <th>Pilihan</th>                                            
