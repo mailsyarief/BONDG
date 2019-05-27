@@ -281,8 +281,7 @@ class OrderController extends Controller
 
             $kwhlama = $request->kwhlama;
             $kwhbaru = $request->kwhbaru;
-            $beritaacara = $request->beritaacara;           
-               
+            $beritaacara = $request->beritaacara;  
             DB::BeginTransaction();
             try{
                 $bondg->filename_kwhlama = $kwhlama;
@@ -292,17 +291,21 @@ class OrderController extends Controller
                 $bondg->tglterpasang = Carbon::now();
                 $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
                 $bondg->save();
+                DB::commit();
             } 
             catch (Exception $e) 
             {
                 DB::rollback();
-            }    
+            } 
             return response()->json([
                 'error' => 0,
                 'message' => 'Berhasil Upload',
             ]);   
         }
     }
+
+
+
 
     public function test()
     {

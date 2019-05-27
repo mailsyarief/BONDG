@@ -182,9 +182,8 @@ class AdminController extends Controller
     //ap2t
     public function showform_ap2t()
     {
-        $norows = 1;
-        $bondg = bondg::get();
-        $count = 0;
+        $bondg = bondg::where('status','=','Laporan')->get();
+        $count = 1;
         return view('admin.input-ap2t', compact('bondg', 'norows', 'count'));
     }
 
@@ -197,6 +196,7 @@ class AdminController extends Controller
         return view('admin.input-ap2t', compact('bondg', 'norows', 'count'));
     }
 
+    //petugas
     public function search_bondg_2(Request $request)
     {
         $nobondg = $request->nodg;
@@ -338,7 +338,10 @@ class AdminController extends Controller
         } 
 
         //buat kirim notif
-        kirimnotif();
+        $token = "fY9iiW68hfw:APA91bH-7Vvie5TzQGWRswBbswW6kuDzn3iqX04FOIrz2J60FFalBeb8W9k9oX1ZQr3iiAvFUvNs9_PPmLNNWv5jJZFZMlGLIBh69QZQjeY3S76C3En9SEkPv3uz_QPoO8STz0V73O9S";
+        $head = "Ada tugas baru!";
+        $body = "tugasnya disini cok";
+        $this->kirimnotif($token, $head, $body);
         
         return redirect('/input-petugas')->with('success', 'Petugas berhasil ditambahkan');
     }
