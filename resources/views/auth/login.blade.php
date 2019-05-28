@@ -74,8 +74,9 @@
 
 
         <p class="mb-1">
-        <a href="#">I forgot my password</a>
+            <a href="#">I forgot my password</a>            
         </p>
+        <a href="../register">Register Akun</a>
     </div>
     <!-- /.login-card-body -->
     </div>

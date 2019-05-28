@@ -55,6 +55,10 @@ class AdminController extends Controller
             $bondg->keluhan = $request->keluhan;
             $bondg->perbaikan = $request->perbaikan;
             $bondg->status = "Laporan";
+            $bondg->kwhmeterlama_merk = $request->merk;
+            $bondg->kwhmeterlama_type = $request->type;
+            $bondg->kwhmeterlama_th = $request->tahun;
+            $bondg->kwhmeterlama_sisakwh = $request->sisakwh;
             $bondg->waktupengerjaan = 0;
             $bondg->save();
             DB::commit();
@@ -168,6 +172,10 @@ class AdminController extends Controller
             $bondg->perbaikan = $request->perbaikan;
             $bondg->alamat = $request->alamat;
             $bondg->nometerlama = $request->nometerlama;
+            $bondg->kwhmeterlama_merk = $request->merk;
+            $bondg->kwhmeterlama_type = $request->type;
+            $bondg->kwhmeterlama_th = $request->tahun;
+            $bondg->kwhmeterlama_sisakwh = $request->sisakwh;
             $bondg->save();
 
             DB::commit();

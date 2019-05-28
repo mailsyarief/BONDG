@@ -54,9 +54,11 @@
                                     <div class="form-group">
                                         <label>Posko</label>
                                         <select class="form-control select2" style="width: 100%;" name="posko">
-                                            <option selected="selected">Panimbang</option>
                                             <option>Labuan</option>
+                                            <option>Menes</option>
                                             <option>Panimbang</option>
+                                            <option>Cibaliung</option>
+                                            <option>Sumur</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -182,6 +184,22 @@
                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. meter lama (11 digit)..." name="nometerlama" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputPassword1">Merk KWH meter lama</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan merk KWH meter lama..." name="merk">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Type KWH meter lama</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan type KWH meter lama..." name="type">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Tahun buat KWH meter lama</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan tahun KWH meter lama..." name="tahun">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Sisa KWH meter lama</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan sisa KWH meter lama..." name="sisakwh">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleInputPassword1">Keluhan</label>
                                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan keluhan..." name="keluhan" required>
                                     </div>
@@ -192,7 +210,7 @@
                                 </div>
                                 <!-- /.card-body -->                
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </form>
                         </div>

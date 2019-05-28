@@ -178,7 +178,10 @@
                                                                     <select class="form-control select2" style="width: 100%;" name="posko" required>
                                                                         <option selected="selected">{{$data->posko}}</option>
                                                                         <option>Labuan</option>
+                                                                        <option>Menes</option>
                                                                         <option>Panimbang</option>
+                                                                        <option>Cibaliung</option>
+                                                                        <option>Sumur</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
@@ -205,6 +208,14 @@
                                                                     <label for="exampleInputPassword1">Keluhan</label>
                                                                     <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->keluhan}}" placeholder="Masukkan keluhan..." name="keluhan" required>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Merk KWH meter lama</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->kwhmeterlama_merk}}" placeholder="Masukkan merk KWH meter lama..." name="merk">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Type KWH meter lama</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->kwhmeterlama_type}}" placeholder="Masukkan type KWH meter lama..." name="type">
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -230,6 +241,14 @@
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Perbaikan</label>
                                                                     <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->perbaikan}}" placeholder="Masukkan perbaikan..." name="perbaikan" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Tahun buat KWH meter lama</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->kwhmeterlama_th}}" placeholder="Masukkan tahun KWH meter lama..." name="tahun">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputPassword1">Sisa KWH meter lama</label>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->kwhmeterlama_sisakwh}}" placeholder="Masukkan sisa KWH meter lama..." name="sisakwh">
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -190,30 +190,12 @@
                         </a>
                     </li>                    
                     <li class="nav-header">MANAJEMEN AKUN</li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item">
+                        <a href="../daftar-akun" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
-                        <p>
-                            Akun Petugas
-                            <i class="right fa fa-angle-left"></i>
-                        </p>
+                        <p>Daftar Akun Petugas</p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="../daftar-akun" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Daftar Akun Petugas</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../register-akun" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Tambah Akun Petugas</p>
-                                </a>
-                            </li>
-                        
-                        </ul>
-                    </li>
+                    </li> 
                     @endif
                     
                     
