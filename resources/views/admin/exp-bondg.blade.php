@@ -40,7 +40,7 @@
         <tr>
             <td>{{ $no++ }}.</td>
             <td>{{ $data->posko }}</td>
-            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d M Y');?></td>
+            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d-m-Y');?></td>
             <td>{{ $data->nodg }}</td>
             <td>{{ $data->namapel }}</td>
             <td>{{ $data->idpel }}&nbsp;</td>

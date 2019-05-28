@@ -48,7 +48,7 @@ Route::post('/remaja', 'AdminController@remaja');
 Route::post('/downloadbondg', 'AdminController@ExportBondg');
 Route::post('/downloadpenagihan', 'AdminController@ExportPenagihan');
 Route::get('/penagihan', 'AdminController@penagihan');
-
+Route::post('/penagihan', 'AdminController@filter_penagihan');
 
 Route::get('/status-order', 'ViewerController@show_status');
 Route::post('/tambah-petugas', 'AdminController@tambah_petugas');

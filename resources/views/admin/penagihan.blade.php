@@ -49,10 +49,10 @@
                                       <label>Filter:</label>  
                                 </div>
                                 <div class="col-md-9">                                    
-                                    <form action="../bondg" method="POST">
+                                    <form action="../penagihan" method="POST">
                                     @csrf
                                         <div class="row">
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <div class="form-group">                                                                                                                      
                                                     <label>Range Tanggal:</label> 
                                                 </div>   
@@ -67,12 +67,7 @@
                                                     <input class="form-control" type="date" name="datetill" value="{{$datetill}}">
                                                 </div>                                 
                                             </div>
-                                            <div class="col-md-1">
-                                                <div class="form-group">                                                                                                                      
-                                                    <label>Status:</label> 
-                                                </div>   
-                                            </div>
-                                            <div class="col-md-2">                                         
+                                            <div class="col-md-4">                                         
                                                 <button type="submit" class="btn btn-block btn-outline-info"><i class="fa fa-search"></i> Filter</button>
                                             </div>
                                         </div>
@@ -81,6 +76,8 @@
                                 <div class="col-md-2">
                                     <form action="../downloadpenagihan" method="POST">
                                         @csrf
+                                        <input class="form-control" type="date" name='datefrom' value="{{$datefrom}}" hidden>
+                                        <input class="form-control" type="date" name="datetill" value="{{$datetill}}" hidden>
                                         <button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-download"></i> Download</button>
                                     </form>                                      
                                     
@@ -110,8 +107,8 @@
                                         @foreach ($bondg as $data)
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
-                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d M Y');?></td>
-                                            <td><?php echo Carbon\Carbon::createFromDate($data->tglterpasang)->format('d M Y');?></td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d-m-Y');?></td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tglterpasang)->format('d-m-Y');?></td>
                                             <td>
                                                 @if (strlen($data->nodg)==7)
                                                     0{{$data->nodg}}

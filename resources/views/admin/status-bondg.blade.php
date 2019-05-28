@@ -125,7 +125,7 @@
                                         @foreach ($bondg as $data)
                                         <tr>
                                             <td style="width: 5%;">{{$no++}}.</td>
-                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d M Y');?></td>
+                                            <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d-m-Y');?></td>
                                             <td>
                                                 @if (strlen($data->nodg)==7)
                                                     0{{$data->nodg}}

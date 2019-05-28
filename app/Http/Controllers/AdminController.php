@@ -442,14 +442,62 @@ class AdminController extends Controller
         $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
 		$datefrom = null;
 		$datetill = null;
-		$status = "Terpasang";
         $no = 1;
+        return view('admin.penagihan', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
+    }
+
+    public function filter_penagihan(Request $request)
+    {  
+        
+        if($request->datefrom != NULL)
+        {
+            $this->validate($request, [
+                'datetill' => ['required'],
+            ]);
+            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
+            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+        }
+        else if ($request->datetill != NULL)
+        {
+            $this->validate($request, [
+                'datefrom' => ['required'],
+            ]);
+            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
+            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+        }
+        else
+        {
+            $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+        }   
+		$no = 1;
+		$datefrom = $request->datefrom;
+		$datetill = $request->datetill;
+		$status = $request->status;
         return view('admin.penagihan', compact('bondg', 'no', 'datefrom', 'datetill', 'status'));
     }
 
     public function ExportPenagihan(Request $request)
     {
-        $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+        if($request->datefrom != NULL)
+        {
+            $this->validate($request, [
+                'datetill' => ['required'],
+            ]);
+            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
+            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+        }
+        else if ($request->datetill != NULL)
+        {
+            $this->validate($request, [
+                'datefrom' => ['required'],
+            ]);
+            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
+            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+        }
+        else
+        {
+            $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+        }  
 
 		$nama_file = 'laporan_penagihan_'.date('Y-m-d_H-i-s').'.xlsx';
         return Excel::download(new PenagihanExports($bondg), $nama_file);
