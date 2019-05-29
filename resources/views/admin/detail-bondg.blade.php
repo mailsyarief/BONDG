@@ -18,7 +18,14 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Status</li>
                         <li class="breadcrumb-item"><a href="../bondg">BON DG</a></li>
-                        <li class="breadcrumb-item active">No. DG: {{$bondg->nodg}}</li>
+                        <li class="breadcrumb-item active">No. DG: <td>
+                                @if (strlen($bondg->nodg)==7)
+                                    0{{$bondg->nodg}}
+                                @else
+                                    {{$bondg->nodg}}
+                                @endif                                               
+                            </td>
+                        </li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -48,7 +55,13 @@
                                         </tr>                                        
                                         <tr>
                                             <th>No. BON DG:</th>
-                                            <td>{{$bondg->nodg}}</td>
+                                            <td>
+                                                @if (strlen($bondg->nodg)==7)
+                                                    0{{$bondg->nodg}}
+                                                @else
+                                                    {{$bondg->nodg}}
+                                                @endif                                               
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Nama Pelapor:</th>
@@ -129,6 +142,14 @@
                                             <th>Tanggal Pengiriman WO:</th>
                                             <td><?php if($bondg->tglkirimpetugas!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglkirimpetugas)->toFormattedDateString(); ?></td>
                                         </tr>
+                                        <tr>
+                                            <th>Petugas:</th>
+                                            @if ($bondg->petugas != NULL)
+                                                <td>{{$bondg->petugas->name}}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                        </tr> 
                                         @endif
                                         @if($bondg->status == "Terpasang" || $bondg->status == "Remaja")
                                         <tr>
@@ -142,21 +163,42 @@
                                             <td><?php if($bondg->tglremaja!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglremaja)->toFormattedDateString(); ?></td>
                                         </tr>
                                         @endif
-                                        @if($bondg->status == "Batal")
+                                        @if($bondg->status == "Pengajuan Batal")
                                         <tr>
-                                            <th>Tanggal Batal:</th>
-                                            <td><?php if($bondg->tglbatal!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?></td>
+                                            <th>Tanggal Batal 1:</th>
+                                            <td><?php if($bondg->tglbatal1!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?></td>
                                         </tr>
                                         <tr>
                                             <th>Alasan Batal 1:</th>
                                             <td>{{$bondg->cancel_1}}</td>
                                         </tr>
                                         <tr>
+                                            <th>Petugas Batal 1:</th>
+                                            <td>{{$bondg->id_petugasbatal}}</td>
+                                        </tr>
+                                        @endif
+                                        @if($bondg->status == "Batal")
+                                        <tr>
+                                            <th>Tanggal Batal 1:</th>
+                                            <td><?php if($bondg->tglbatal1!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Alasan Batal 1:</th>
+                                            <td>{{$bondg->cancel_1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Petugas Batal 1:</th>
+                                            <td>{{$bondg->id_petugasbatal}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Batal 2:</th>
+                                            <td><?php if($bondg->tglbatal!= NULL) echo Carbon\Carbon::createFromDate($bondg->tglbatal)->toFormattedDateString(); ?></td>
+                                        </tr>
+                                        <tr>
                                             <th>Alasan Batal 2:</th>
                                             <td>{{$bondg->cancel_2}}</td>
                                         </tr>
-                                        @endif
-                                       
+                                        @endif                                       
                                         <tr>
                                             <th>Keluhan:</th>
                                             <td>{{$bondg->keluhan}}</td>
@@ -165,14 +207,6 @@
                                             <th>Perbaikan:</th>
                                             <td>{{$bondg->perbaikan}}</td>
                                         </tr>
-                                        <tr>
-                                            <th>Petugas:</th>
-                                            @if ($bondg->petugas != NULL)
-                                                <td>{{$bondg->petugas->name}}</td>
-                                            @else
-                                                <td></td>
-                                            @endif
-                                        </tr> 
                                         <tr>
                                             <th>Waktu Pengerjaan:</th>
                                             <td>{{$bondg->waktupengerjaan}} hari</td>

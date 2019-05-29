@@ -81,6 +81,8 @@
                                                         <option>Laporan</option>
                                                         <option>Cetak PK</option>
                                                         <option>Pengiriman WO</option>
+                                                        <option>Terpasang</option>
+                                                        <option>Pengajuan Batal</option>
                                                         <option>Batal</option>
                                                         <option>Remaja</option>
                                                     </select>

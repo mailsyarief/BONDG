@@ -11,6 +11,7 @@ use Validator;
 use Storage;
 use File;
 use DB;
+use App\Http\Notifications\OrderNotif;
 
 class OrderController extends Controller
 {
@@ -233,6 +234,7 @@ class OrderController extends Controller
                     'error' => 1,
                     'message' => 'BON DG tidak ditemukan!',
                 ]);
+                
             }
             else
             {
@@ -242,6 +244,11 @@ class OrderController extends Controller
                     DB::BeginTransaction();
                     try{
                         $bondg->cancel_1 = $request->alasan;
+                        $bondg->status = "Pengajuan Batal";
+                        $bondg->id_petugasbatal = $user->name;
+                        $bondg->id_petugas = null;
+                        $bondg->tglbatal1 = Carbon::now();
+                        $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
                         $bondg->save();
                         DB::commit();
                     } 

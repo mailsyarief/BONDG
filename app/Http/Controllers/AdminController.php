@@ -15,6 +15,7 @@ use File;
 use Excel;
 use App\Exports\BondgExports;
 use App\Exports\PenagihanExports;
+use App\Notifications\OrderNotif;
 
 class AdminController extends Controller
 {
@@ -295,7 +296,7 @@ class AdminController extends Controller
             {
                 DB::rollback();
             }   
-            
+            dd(auth()->user()->notify(new OrderNotif()));
             return redirect('/daftar-akun')->with('success', 'Akun berhasil dinonaktifkan');
         }
         else
@@ -309,9 +310,12 @@ class AdminController extends Controller
             catch (Exception $e) 
             {
                 DB::rollback();
-            }              
+            }   
+            dd(auth()->user()->notify(new OrderNotif()));           
             return redirect('/daftar-akun')->with('success', 'Akun berhasil diaktifkan');
         }
+
+        
         
     }
 
@@ -323,8 +327,8 @@ class AdminController extends Controller
 
     public function showform_petugas()
     {
-        $bondg = bondg::where('status', '=', 'Cetak PK')->get();
-        $petugas = user::where('role', '=', '0')->get();
+        $bondg = bondg::where('status', '=', 'Pengajuan Batal')->orWhere('status', '=', 'Cetak PK')->get();
+        $petugas = user::where('role', '=', '0')->where('active', '=', '1')->get();
         $no = 1;
         return view('admin.input-petugas', compact('bondg', 'no', 'petugas'));
     }

@@ -56,6 +56,7 @@
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th style="width: 30%;">Tambah Petugas</th>
                                         </tr>
                                     </thead>
@@ -72,6 +73,17 @@
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
                                             <td>{{$data->status}}</td>
+                                            <td>
+                                                <form action = "../detail-bondg" method="POST">
+                                                    @csrf
+                                                    @if (strlen($data->nodg)==7)
+                                                        <input type="text" value="0{{$data->nodg}}" name="id" hidden>
+                                                    @else 
+                                                        <input type="text" value="{{$data->nodg}}" name="id" hidden>
+                                                    @endif                                                    
+                                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i> Lihat Detail</button>
+                                                </form>
+                                            </td>
                                             <td>                                                    
                                                 <form method="POST" action="../tambah-petugas">
                                                     @csrf
@@ -109,6 +121,7 @@
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th>Tambah Petugas</th>                                            
                                         </tr>
                                     </tfoot>
