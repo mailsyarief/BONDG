@@ -53,13 +53,6 @@ Route::post('/downloadpenagihan', 'AdminController@ExportPenagihan');
 Route::get('/penagihan', 'AdminController@penagihan');
 Route::post('/penagihan', 'AdminController@filter_penagihan');
 
-Route::get('/status-order', 'ViewerController@show_status');
-Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
-
-route::get('/test', 'API\OrderController@coba');
-Route::get('/markasread', function () {
-    auth()->user()->unreadNotifications->markAsRead();
-});
 
 Route::get('test', function () {
     event(new App\Events\StatusLiked('Guest'));
