@@ -11,7 +11,9 @@ use Validator;
 use Storage;
 use File;
 use DB;
-use App\Http\Notifications\OrderNotif;
+use Event;
+use App\Events\StatusLiked;
+
 
 class OrderController extends Controller
 {
@@ -256,10 +258,13 @@ class OrderController extends Controller
                     {
                         DB::rollback();
                     }  
+                    event(new StatusLiked('Hai'));
                     return response()->json([
                         'error' => 0,
                         'message' => "Pembatalan berhasil diajukan",
                     ]);
+
+                    
                 }
                 else
                 {
@@ -321,11 +326,17 @@ class OrderController extends Controller
         }
     }
 
-
-
-
-    public function test()
+    public function coba()
     {
-        return view('admin.exp-penagihan');
+        //\Event::fire(new StatusLiked('Hai'));
+        if(event(new StatusLiked('Hai')))
+        {
+            return "haloo";
+        }
+        else
+        {
+            dd(event(new StatusLiked('Hai')));
+        }
+        
     }
 }

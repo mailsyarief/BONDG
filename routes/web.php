@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return redirect('/login');
 });
+Route::get('/halo', function () {
+    return view('admin.notif');
+});
 
 
 Route::get('/test/{id}', 'AdminController@test');
@@ -53,4 +56,12 @@ Route::post('/penagihan', 'AdminController@filter_penagihan');
 Route::get('/status-order', 'ViewerController@show_status');
 Route::post('/tambah-petugas', 'AdminController@tambah_petugas');
 
-route::get('/test', 'API\OrderController@test');
+route::get('/test', 'API\OrderController@coba');
+Route::get('/markasread', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+});
+
+Route::get('test', function () {
+    event(new App\Events\StatusLiked('Guest'));
+    return "Event has been sent!";
+});

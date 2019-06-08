@@ -16,7 +16,7 @@ use Excel;
 use App\Exports\BondgExports;
 use App\Exports\PenagihanExports;
 use App\Notifications\OrderNotif;
-
+use Notification;
 class AdminController extends Controller
 {
     public function __construct()
@@ -185,7 +185,11 @@ class AdminController extends Controller
         {
             DB::rollback();
         }
-		
+        $user = user::find(2);
+        $admin = user::where('role', '=', '1')->get();
+        Notification::send($admin, new OrderNotif($bondg, $user));
+        
+        ///$admin->notify(new OrderNotif($bondg));
         return redirect('/bondg')->with('success', 'BON DG Berhasil Diubah');       
     }
 
@@ -296,7 +300,6 @@ class AdminController extends Controller
             {
                 DB::rollback();
             }   
-            dd(auth()->user()->notify(new OrderNotif()));
             return redirect('/daftar-akun')->with('success', 'Akun berhasil dinonaktifkan');
         }
         else
@@ -310,8 +313,7 @@ class AdminController extends Controller
             catch (Exception $e) 
             {
                 DB::rollback();
-            }   
-            dd(auth()->user()->notify(new OrderNotif()));           
+            }         
             return redirect('/daftar-akun')->with('success', 'Akun berhasil diaktifkan');
         }
 

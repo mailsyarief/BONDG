@@ -11,19 +11,20 @@ use App\user;
 use Carbon\Carbon;
 
 
-class OrderNotif extends Notification 
+class OrderNotif extends Notification implements ShouldQueue
 {
     use Queueable;
-
+ 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    protected $item,$user;
-    public function __construct()
+    protected $bondg, $user;
+    public function __construct($bondg, $user)
     {
-        
+        $this->bondg = $bondg;
+        $this->user = $user;
     }
 
     /**
@@ -60,7 +61,9 @@ class OrderNotif extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'uploadTime' =>Carbon::now()
+            'uploadTime' =>Carbon::now(),
+            'bondg' => $this->bondg,
+            'user' => $this->user
         ];
     }
 }
