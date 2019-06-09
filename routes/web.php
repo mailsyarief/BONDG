@@ -14,12 +14,6 @@
 Route::get('/', function () {
     return redirect('/login');
 });
-Route::get('/halo', function () {
-    return view('admin.notif');
-});
-
-
-Route::get('/test/{id}', 'AdminController@test');
 
 Auth::routes();
 
@@ -52,9 +46,3 @@ Route::post('/downloadbondg', 'AdminController@ExportBondg');
 Route::post('/downloadpenagihan', 'AdminController@ExportPenagihan');
 Route::get('/penagihan', 'AdminController@penagihan');
 Route::post('/penagihan', 'AdminController@filter_penagihan');
-
-
-Route::get('test', function () {
-    event(new App\Events\StatusLiked('Guest'));
-    return "Event has been sent!";
-});

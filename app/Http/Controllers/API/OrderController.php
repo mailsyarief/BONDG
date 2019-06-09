@@ -258,7 +258,6 @@ class OrderController extends Controller
                     {
                         DB::rollback();
                     }  
-                    event(new StatusLiked('Hai'));
                     return response()->json([
                         'error' => 0,
                         'message' => "Pembatalan berhasil diajukan",
@@ -326,17 +325,22 @@ class OrderController extends Controller
         }
     }
 
-    public function coba()
+    public function cekTokenHp(Request $request)
     {
-        //\Event::fire(new StatusLiked('Hai'));
-        if(event(new StatusLiked('Hai')))
+        $user = User::where('username', $request->username)->first();
+        if($user->active == 1)
         {
-            return "haloo";
+            return response()->json([
+                'error' => 0,
+                'message' => $user->token_hp,
+            ]); 
         }
         else
         {
-            dd(event(new StatusLiked('Hai')));
+            return response()->json([
+                'error' => 3,
+                'message' => "tidakaktif",
+            ]); 
         }
-        
     }
 }
