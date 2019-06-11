@@ -33,11 +33,11 @@
 
     @yield('css-ext')
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" onload="startTime()">
     <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom navbar-static-top">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -53,13 +53,9 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-circle mr-2"></i>Edit Profil
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-key mr-2"></i> Ganti Password
-                    </a>                    
+                    <a href="../profile" class="dropdown-item">
+                        <i class="fa fa-circle mr-2"></i>Sunting Profil
+                    </a>                  
                     <div class="dropdown-divider"></div>                       
                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf

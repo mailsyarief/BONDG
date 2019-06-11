@@ -330,10 +330,21 @@ class OrderController extends Controller
         $user = User::where('username', $request->username)->first();
         if($user->active == 1)
         {
-            return response()->json([
-                'error' => 0,
-                'message' => $user->token_hp,
-            ]); 
+            if($user->token_hp == null)
+            {
+                return response()->json([
+                    'error' => 3,
+                    'message' => "-",
+                ]);                 
+            }
+
+            else
+            {
+                return response()->json([
+                    'error' => 0,
+                    'message' => $user->token_hp,
+                ]); 
+            }
         }
         else
         {

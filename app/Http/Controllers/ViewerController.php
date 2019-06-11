@@ -13,10 +13,10 @@ class ViewerController extends Controller
         $this->middleware('viewer');
     }
 
-    public function show_status()
+    public function index()
     {
-        $bondg = bondg::orderBy('tgldg', 'desc')->all();
+        $bondg = bondg::orderBy('tgldg', 'desc')->get();
         $no = 1;
-        return view('viewer.status', compact('bondg', 'no'));
+        return view('laporan', compact('bondg', 'no'));
     }
 }

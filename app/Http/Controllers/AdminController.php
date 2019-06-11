@@ -21,11 +21,22 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'checkactivestatus']);
         $this->middleware('admin');
     }
 
 
+    public function index()
+    {
+        $today = Carbon::today();
+        $bondg = count(bondg::where('tgldg', '=', $today)->get());
+        $ap2t = count(bondg::where('tglpk', '=', $today)->get());
+        $kirimorang = count(bondg::where('tglkirimpetugas', '=', $today)->get());
+        $terpasang = count(bondg::where('tglterpasang', '=', $today)->get());
+        $remaja = count(bondg::where('tglremaja', '=', $today)->get());
+        $batal = count(bondg::where('tglbatal', '=', $today)->orWhere('tglbatal1', '=', $today)->get());
+        return view('admin.dashboard', compact('bondg', 'ap2t', 'kirimorang', 'terpasang', 'remaja', 'batal'));
+    }
     //bondg
     public function showform_bondg()
     {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
+
 
 class LoginController extends Controller
 {
@@ -35,10 +37,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware(['guest', 'checkactivestatus'])->except('logout');
         $this->username = $this->findUsername();
     }
 
+    
     public function findUsername()
     {
         $login = request()->input('login');
@@ -56,5 +59,21 @@ class LoginController extends Controller
     public function username()
     {
         return $this->username;
+    }
+
+    public function redirectTo()
+    {
+        if (auth()->user()->role == 0) 
+        {
+            return '/home';
+        } 
+        else if (auth()->user()->role == 1) 
+        {
+            return '/dashboard';
+        } 
+        else 
+        {
+            return '/laporan';
+        }
     }
 }

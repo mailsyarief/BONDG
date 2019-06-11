@@ -21,6 +21,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\Admin::class,     
         \App\Http\Middleware\Viewer::class,    
+        \App\Http\Middleware\Petugas::class,    
+        \App\Http\Middleware\CheckActiveStatus::class,   
     ];
 
     /**
@@ -64,6 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => Middleware\Admin::class,
         'viewer' => Middleware\Viewer::class,
+        'petugas' => Middleware\Petugas::class,
+        'checkactivestatus' => Middleware\CheckActiveStatus::class,
     ];
 
     /**

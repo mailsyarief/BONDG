@@ -26,6 +26,7 @@
         <p>PT. PLN (Persero)</p>
     </div>
     <!-- /.login-logo -->
+    @include('layouts.alert')
     <div class="card">
     <div class="card-body login-card-body">
         <p class="login-box-msg">Silahkan login!</p>

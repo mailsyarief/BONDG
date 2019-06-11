@@ -20,7 +20,8 @@ Auth::routes();
 /*Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');*/
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'PetugasController@index')->name('home');
+Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
 Route::get('/input-bondg', 'AdminController@showform_bondg');
 Route::get('/input-ap2t', 'AdminController@showform_ap2t');
@@ -46,3 +47,8 @@ Route::post('/downloadbondg', 'AdminController@ExportBondg');
 Route::post('/downloadpenagihan', 'AdminController@ExportPenagihan');
 Route::get('/penagihan', 'AdminController@penagihan');
 Route::post('/penagihan', 'AdminController@filter_penagihan');
+
+Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::post('/profile', 'HomeController@suntingProfile')->name('post.profile');
+Route::get('/laporan', 'ViewerController@index')->name('viewer.laporan');
+Route::post('/password', 'HomeController@gantiPassword')->name('post.password');
