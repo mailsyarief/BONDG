@@ -149,7 +149,7 @@
                                                     <input type="text" value="0{{$data->nodg}}" name="id" hidden>
                                                 @else 
                                                     <input type="text" value="{{$data->nodg}}" name="id" hidden>
-                                                @endif                                                    
+                                                @endif                                              
                                                     <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
                                                 </form>
                                                     <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{$data->nodg}}"><i class="fa fa-edit"></i></button>
@@ -279,7 +279,12 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                                                         <form action = "../hapus-bondg" method="POST">
                                                         @csrf
+                                                        @if (strlen($data->nodg)==7)
+                                                            <input type="text" value="0{{$data->nodg}}" name="id" hidden>
+                                                        @else 
                                                             <input type="text" value="{{$data->nodg}}" name="id" hidden>
+                                                        @endif   
+                                                    
                                                             <button type="submit" class="btn btn-danger">Ya</button>
                                                         </form>
                                                     </div>

@@ -174,7 +174,7 @@
                                         </tr>
                                         <tr>
                                             <th>Petugas Batal 1:</th>
-                                            <td>{{$bondg->id_petugasbatal}}</td>
+                                            <td>{{$batal->petugasBatal->name}}</td>
                                         </tr>
                                         @endif
                                         @if($bondg->status == "Batal")
@@ -188,7 +188,7 @@
                                         </tr>
                                         <tr>
                                             <th>Petugas Batal 1:</th>
-                                            <td>{{$bondg->id_petugasbatal}}</td>
+                                            <td>{{$batal->petugasBatal->name}}</td>
                                         </tr>
                                         <tr>
                                             <th>Tanggal Batal 2:</th>

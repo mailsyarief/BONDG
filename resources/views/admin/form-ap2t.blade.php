@@ -112,7 +112,7 @@
                                             <p><strong> KWH Meter Dipasang</strong></p>      
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Nomor KWH meter baru</label>
-                                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan nomor KWH meter baru..." name="nometerbaru" required>
+                                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan nomor KWH meter baru (11 digit)..." name="nometerbaru" required>
                                             </div>                                      
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Merk</label>

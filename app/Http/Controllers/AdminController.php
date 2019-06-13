@@ -29,12 +29,13 @@ class AdminController extends Controller
     public function index()
     {
         $today = Carbon::today();
-        $bondg = count(bondg::where('tgldg', '=', $today)->get());
-        $ap2t = count(bondg::where('tglpk', '=', $today)->get());
-        $kirimorang = count(bondg::where('tglkirimpetugas', '=', $today)->get());
-        $terpasang = count(bondg::where('tglterpasang', '=', $today)->get());
-        $remaja = count(bondg::where('tglremaja', '=', $today)->get());
-        $batal = count(bondg::where('tglbatal', '=', $today)->orWhere('tglbatal1', '=', $today)->get());
+        $bondg = count(bondg::whereDate('tgldg', '=', $today)->get());
+        $ap2t = count(bondg::whereDate('tglpk', '=', $today)->get());
+        $kirimorang = count(bondg::whereDate('tglkirimpetugas', '=', $today)->get());
+        $terpasang = count(bondg::whereDate('tglterpasang', '=', $today)->get());
+       // dd(bondg::find('01234568'));
+        $remaja = count(bondg::whereDate('tglremaja', '=', $today)->get());
+        $batal = count(bondg::whereDate('tglbatal', '=', $today)->orWhere('tglbatal1', '=', $today)->get());
         return view('admin.dashboard', compact('bondg', 'ap2t', 'kirimorang', 'terpasang', 'remaja', 'batal'));
     }
     //bondg
@@ -101,8 +102,9 @@ class AdminController extends Controller
                     'datetill' => ['required'],
                 ]);
                 $bondg = bondg::where('status', '=', $request->status)
-                ->where("tgldg", '<=',  $request->datetill)
-                ->where("tgldg", '>=',   $request->datefrom)
+                ->whereDate("tgldg", '<=',  $request->datetill)
+                ->whereDate("tgldg", '>=',   $request->datefrom)
+                ->orderBy('tgldg', 'desc')
                 ->get();
             }
             else if ($request->datetill != NULL)
@@ -111,13 +113,14 @@ class AdminController extends Controller
                     'datefrom' => ['required'],
                 ]);
                 $bondg = bondg::where('status', '=', $request->status)
-                ->where("tgldg", "<=", $request->datetill)
-                ->where("tgldg", ">=", $request->datefrom)
+                ->whereDate("tgldg", "<=", $request->datetill)
+                ->whereDate("tgldg", ">=", $request->datefrom)
+                ->orderBy('tgldg', 'desc')
                 ->get();
             }
             else
             {
-                $bondg = bondg::where('status', '=', $request->status)->get();
+                $bondg = bondg::where('status', '=', $request->status)->orderBy('tgldg', 'desc')->get();
             }              
         }
         else
@@ -127,8 +130,9 @@ class AdminController extends Controller
                 $this->validate($request, [
                     'datetill' => ['required'],
                 ]);
-                $bondg = bondg::where("tgldg", "<=",  $request->datetill)
-                ->where("tgldg", ">=", $request->datefrom)
+                $bondg = bondg::whereDate("tgldg", "<=",  $request->datetill)
+                ->whereDate("tgldg", ">=", $request->datefrom)
+                ->orderBy('tgldg', 'desc')
                 ->get();
             }
             else if ($request->datetill != NULL)
@@ -136,13 +140,14 @@ class AdminController extends Controller
                 $this->validate($request, [
                     'datefrom' => ['required'],
                 ]);
-                $bondg = bondg::where("tgldg", "<=",  $request->datetill)
-                ->where("tgldg", ">=",  $request->datefrom)
+                $bondg = bondg::whereDate("tgldg", "<=",  $request->datetill)
+                ->whereDate("tgldg", ">=",  $request->datefrom)
+                ->orderBy('tgldg', 'desc')
                 ->get();
             }
             else
             {
-                $bondg = bondg::all();
+                $bondg = bondg::orderBy('tgldg', 'desc')->get();
             }
         }   
 		$no = 1;
@@ -156,7 +161,16 @@ class AdminController extends Controller
     {
         $id = $request->id;
         $bondg = bondg::with('petugas')->find($id);
-        return view('admin.detail-bondg', compact('bondg'));
+        if($bondg->id_petugasbatal !=null)
+        {
+            $batal = bondg::with('petugasBatal')->find($id);
+            return view('admin.detail-bondg', compact('bondg', 'batal'));
+        }
+        else
+        {
+            return view('admin.detail-bondg', compact('bondg'));
+        }
+       
     }
 
     public function hapus_bondg(Request $request)
@@ -423,8 +437,8 @@ class AdminController extends Controller
                     'datefrom' => ['required'],
                 ]);
                 $bondg = bondg::with('petugas')->where('status', '=', $request->status)
-                ->where("tgldg", "<=", $request->datetill)
-                ->where("tgldg", ">=", $request->datefrom)
+                ->whereDate("tgldg", "<=", $request->datetill)
+                ->whereDate("tgldg", ">=", $request->datefrom)
                 ->get();
             }
             else
@@ -439,8 +453,8 @@ class AdminController extends Controller
                 $this->validate($request, [
                     'datetill' => ['required'],
                 ]);
-                $bondg = bondg::with('petugas')->where("tgldg", "<=",  $request->datetill)
-                ->where("tgldg", ">=", $request->datefrom)
+                $bondg = bondg::with('petugas')->whereDate("tgldg", "<=",  $request->datetill)
+                ->whereDate("tgldg", ">=", $request->datefrom)
                 ->get();
             }
             else if ($request->datetill != NULL)
@@ -448,8 +462,8 @@ class AdminController extends Controller
                 $this->validate($request, [
                     'datefrom' => ['required'],
                 ]);
-                $bondg = bondg::with('petugas')->where("tgldg", "<=",  $request->datetill)
-                ->where("tgldg", ">=",  $request->datefrom)
+                $bondg = bondg::with('petugas')->whereDate("tgldg", "<=",  $request->datetill)
+                ->whereDate("tgldg", ">=",  $request->datefrom)
                 ->get();
             }
             else
@@ -464,7 +478,7 @@ class AdminController extends Controller
 
     public function penagihan()
     {
-        $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+        $bondg = bondg::where('status', 'Remaja')->where('downloaded', null)->orderBy('tgldg', 'desc')->get();
 		$datefrom = null;
 		$datetill = null;
         $no = 1;
@@ -479,20 +493,20 @@ class AdminController extends Controller
             $this->validate($request, [
                 'datetill' => ['required'],
             ]);
-            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
-            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+            $bondg = bondg::where('status', 'Remaja')->whereDate("tgldg", "<=",  $request->datetill)
+            ->whereDate("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->where('downloaded', null)->get();
         }
         else if ($request->datetill != NULL)
         {
             $this->validate($request, [
                 'datefrom' => ['required'],
             ]);
-            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
-            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+            $bondg = bondg::where('status', 'Remaja')->whereDate("tgldg", "<=",  $request->datetill)
+            ->whereDate("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->where('downloaded', null)->get();
         }
         else
         {
-            $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+            $bondg = bondg::where('status', 'Remaja')->orderBy('tgldg', 'desc')->where('downloaded', null)->get();
         }   
 		$no = 1;
 		$datefrom = $request->datefrom;
@@ -508,23 +522,37 @@ class AdminController extends Controller
             $this->validate($request, [
                 'datetill' => ['required'],
             ]);
-            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
-            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+            $bondg = bondg::where('status', 'Remaja')->whereDate("tgldg", "<=",  $request->datetill)
+            ->whereDate("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->where('downloaded', null)->get();
         }
         else if ($request->datetill != NULL)
         {
             $this->validate($request, [
                 'datefrom' => ['required'],
             ]);
-            $bondg = bondg::where('status', 'Terpasang')->where("tgldg", "<=",  $request->datetill)
-            ->where("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->get();
+            $bondg = bondg::where('status', 'Remaja')->whereDate("tgldg", "<=",  $request->datetill)
+            ->whereDate("tgldg", ">=", $request->datefrom)->orderBy('tgldg', 'desc')->where('downloaded', null)->get();
         }
         else
         {
-            $bondg = bondg::where('status', 'Terpasang')->orderBy('tgldg', 'desc')->get();
+            $bondg = bondg::where('status', 'Remaja')->orderBy('tgldg', 'desc')->where('downloaded', null)->get();
         }  
 
-		$nama_file = 'laporan_penagihan_'.date('Y-m-d_H-i-s').'.xlsx';
+        $nama_file = 'laporan_penagihan_'.date('Y-m-d_H-i-s').'.xlsx';
+
+        foreach($bondg as $item)
+        {
+            DB::BeginTransaction();
+            try{
+                $item->downloaded = 1;        
+                $item->save();        
+                DB::commit();
+            } 
+            catch (Exception $e) 
+            {
+                DB::rollback();
+            }
+        }
         return Excel::download(new PenagihanExports($bondg), $nama_file);
     }
 

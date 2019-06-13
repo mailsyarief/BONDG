@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function bondg(){
         return $this->hasMany(bondg::class, 'id_petugas', 'id');
     }
+
+    public function bondgBatal(){
+        return $this->hasMany(bondg::class, 'id_petugasbatal', 'id');
+    }
 }

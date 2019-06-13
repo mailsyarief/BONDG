@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.css">
 @endsection
 @section('content')
-<title>Status | BON DG</title>
+<title>Input | AP2T</title>
 <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">

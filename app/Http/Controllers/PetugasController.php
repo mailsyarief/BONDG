@@ -19,7 +19,14 @@ class PetugasController extends Controller
     {
         $tugas = count(bondg::where('status', '=', 'Pengiriman WO')->where('id_petugas', '=', Auth::user()->id)->get());
         $terpasang = count(bondg::where('status', '=', 'Terpasang')->where('id_petugas', '=', Auth::user()->id)->get());
-        $batal = count(bondg::where('status', '=', 'Batal')->orWhere('status', '=', 'Pengajuan Batal')->where('id_petugas', '=', Auth::user()->id)->orWhere('id_petugasbatal', '=', Auth::user()->id)->get());
+        $batal = count(bondg::where(function ($query) {
+            $query->where('Status', 'Batal')
+                ->orWhere('Status', '=', 'Pengajuan Batal');
+        })->where(function ($query) {
+            $query->where('id_petugas', Auth::user()->id)
+                ->orWhere('id_petugasbatal', '=',  Auth::user()->id);
+        })
+        ->get());
         return view('home', compact('tugas', 'terpasang', 'batal'));
     }
 

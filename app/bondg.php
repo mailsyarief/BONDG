@@ -18,4 +18,7 @@ class bondg extends Model
     public function petugas(){
         return $this->belongsTo(user::class, 'id_petugas', 'id');
     }
+    public function petugasBatal(){
+        return $this->belongsTo(user::class, 'id_petugasbatal', 'id');
+    }
 }

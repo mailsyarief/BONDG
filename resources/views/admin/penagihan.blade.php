@@ -118,7 +118,9 @@
                                             </td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
-                                            <td>{{$data->petugas->name}}</td>
+                                            <td>@if ($data->petugas!=null)
+                                                {{$data->petugas->name}}
+                                            @endif</td>
                                             <td>{{$data->status}}</td>
                                             <td>
                                                 {{$data->waktupengerjaan}} hari
@@ -253,13 +255,14 @@
                                         <tr>
                                             <th style="width: 5%;">No.</th>
                                             <th>Tgl. Laporan</th>
+                                            <th>Tgl. Terpasang</th>
                                             <th>No. DG</th>
                                             <th>Nama Pelapor</th>
                                             <th>ID Pelanggan</th>
                                             <th>Nama Petugas</th>
                                             <th>Status</th>
-                                            <th>Waktu Pengerjaan</th>
-                                            <th>Pilihan</th>                                            
+                                            <th style="width: 10%;">Waktu Pengerjaan</th>
+                                            <th>Pilihan</th>                                         
                                         </tr>
                                     </tfoot>
                                 </table>

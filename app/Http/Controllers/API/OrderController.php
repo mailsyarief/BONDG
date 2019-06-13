@@ -309,8 +309,8 @@ class OrderController extends Controller
                 $bondg->filename_kwhbaru = $kwhbaru;
                 $bondg->filename_ba = $beritaacara;
                 $bondg->status = "Terpasang";
-                $bondg->tglterpasang = Carbon::now();
-                $bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
+                $bondg->tglterpasang = Carbon::createFromFormat('d/m/y H:i', $request->waktu_selesai)->toDateTimeString();
+                //$bondg->waktupengerjaan = Carbon::now()->diffIndays($bondg->tgldg);
                 $bondg->save();
                 DB::commit();
             } 
