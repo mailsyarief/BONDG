@@ -24,7 +24,7 @@
     <section class="content" >
         <div class="container-fluid">
             <!-- Small Box (Stat card) -->
-            <h5 class="mt-4 text-center">Statistik hari ini:</h5>
+            <h5 class="mt-4 text-center"><b>Statistik hari ini :</b></h5>
             <h5 class="text-center mb-4" id="date"></h5>
             <h5 class="mb-2 text-center" id="txt" style="display: none"></h5>
             <div class="row">
