@@ -161,7 +161,16 @@ return [
         'remaja' => [
             'required' => 'Tidak ada yang diremajakan!',
         ],
-
+        'username' => [
+            'unique' => 'Username sudah ada. Mohon mencari username lain.',
+        ],
+        'email' => [
+            'unique' => 'Email sudah ada. Mohon mencari username lain.',
+        ],
+        'password' => [
+            'min' => 'Password minimal 8 karakter!',
+            'confirmed' => 'Password dan password konfirmasi tidak cocok',
+        ],
     ],
 
     /*

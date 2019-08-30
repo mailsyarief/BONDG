@@ -144,7 +144,7 @@
             <td></td>
             <td></td>
             <td>{{ $data->tglterpasang }}</td>
-            <td>{{ $data->keluhan }}</td>
+            <td>{{ $data->jenisGangguan->nama_gangguan }}</td>
             <td></td>
             <td>
                 @if ($data->petugas!= null)

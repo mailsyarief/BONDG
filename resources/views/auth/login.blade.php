@@ -22,7 +22,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>SI BON DG</b></a><br>
+        <a href="../../index2.html"><img src="../../img/logo.png" style="width: 27%"> <b>eGamer</b></a><br>
         <p>PT. PLN (Persero)</p>
     </div>
     <!-- /.login-logo -->
@@ -59,24 +59,14 @@
         </div>
         <div class="row">
             <div class="col-8">
-            <div class="checkbox icheck">
-                <label>
-                    <input type="checkbox"> Remember Me
-                </label>
-            </div>
-            </div>
             <!-- /.col -->
-            <div class="col-4">
+            <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
             </div>
             <!-- /.col -->
         </div>
         </form>
 
-
-        <p class="mb-1">
-            <a href="#">I forgot my password</a>            
-        </p>
         <a href="../register">Register Akun</a>
     </div>
     <!-- /.login-card-body -->
@@ -85,11 +75,7 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- iCheck -->
-<script src="../../plugins/iCheck/icheck.min.js"></script>
+
 <script>
     $(function () {
         $('input').iCheck({

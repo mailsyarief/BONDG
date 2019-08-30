@@ -91,6 +91,7 @@ class HomeController extends Controller
             return redirect('/profile')->with('danger', 'Password lama anda salah!');
         }
         $newpass = Hash::make($request->password);
+
         if (Hash::check($request->password_now, $newpass)) {
             return redirect('/profile')->with('danger', 'Password baru tidak boleh sama dengan password lama!');
         }
@@ -99,6 +100,7 @@ class HomeController extends Controller
         try{
             $user = Auth::user();            
             $user->password = Hash::make($request->password);
+            $user->save();
             DB::commit();
         } 
         catch (Exception $e) 

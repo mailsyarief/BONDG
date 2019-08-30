@@ -81,6 +81,9 @@ class BondgExports implements FromView, ShouldAutoSize, WithEvents, WithColumnFo
                 ];
                 
                 $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                $event->sheet->getHeaderFooter()->setDifferentOddEven(false);
+                $event->sheet->getHeaderFooter()->setOddFooter('Copyright "eGamer"');
+                
                 
             },
         ];

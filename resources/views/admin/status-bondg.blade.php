@@ -17,7 +17,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">Status</li>
-                            <li class="breadcrumb-item active">BON DG</li>
+                            <li class="breadcrumb-item active">Gangguan</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -35,7 +35,7 @@
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h5><i class="icon fa fa-ban"></i> Alert!</h5>
+                                <h5><i class="icon fa fa-ban"></i> Peringatan!</h5>
                                 <ul>
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -50,7 +50,7 @@
                                       <label>Filter:</label>  
                                 </div>
                                 <div class="col-md-9">                                    
-                                    <form action="../bondg" method="POST">
+                                    <form action="../statusbondg" method="POST">
                                     @csrf
                                         <div class="row">
                                             <div class="col-md-1">
@@ -115,8 +115,8 @@
                                         <tr>
                                             <th style="width: 5%;">No.</th>
                                             <th>Tgl. Laporan</th>
-                                            <th>No. DG</th>
-                                            <th>Nama Pelapor</th>
+                                            <th>No. DG/No. Laporan lain</th>
+                                            <th>Nama</th>
                                             <th>ID Pelanggan</th>
                                             <th>Status</th>
                                             <th style="width: 10%;">Waktu Pengerjaan</th>
@@ -129,11 +129,7 @@
                                             <td style="width: 5%;">{{$no++}}.</td>
                                             <td><?php echo Carbon\Carbon::createFromDate($data->tgldg)->format('d-m-Y');?></td>
                                             <td>
-                                                @if (strlen($data->nodg)==7)
-                                                    0{{$data->nodg}}
-                                                @else
-                                                    {{$data->nodg}}
-                                                @endif                                               
+                                                {{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}                                             
                                             </td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
@@ -145,25 +141,18 @@
                                                 <div class="btn-group">
                                                 <form action = "../detail-bondg" method="POST">
                                                 @csrf
-                                                @if (strlen($data->nodg)==7)
-                                                    <input type="text" value="0{{$data->nodg}}" name="id" hidden>
-                                                @else 
-                                                    <input type="text" value="{{$data->nodg}}" name="id" hidden>
-                                                @endif                                              
+                                                    <input type="text" value="{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}" name="id" hidden>
+                                            
                                                     <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
                                                 </form>
-                                                    <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{$data->nodg}}"><i class="fa fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$data->nodg}}"><i class="fa fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-sm"data-toggle="modal" data-target="#modalEdit{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}"><i class="fa fa-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <div class="modal fade bd-example-modal-lg" id="modalEdit{{$data->nodg}}"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal fade bd-example-modal-lg" id="modalEdit{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                @if (strlen($data->nodg)==7)
-                                                    <form action="{{url('/edit-bondg/0'.$data->nodg)}}" method="POST">
-                                                @else
-                                                    <form action="{{url('/edit-bondg/'.$data->nodg)}}" method="POST">
-                                                @endif
+                                                    <form action="{{url('/edit-bondg/'.str_pad($data->nodg, 8, '0', STR_PAD_LEFT))}}" method="POST">
                                                 @csrf
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -188,11 +177,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Nomor DG</label>
-                                                                    @if (strlen($data->nodg)==7)
-                                                                        <input type="text" class="form-control" id="exampleInputPassword1" value="0{{$data->nodg}}" placeholder="Masukkan nomor DG..." name="nodg_new" required>
-                                                                    @else
-                                                                        <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->nodg}}" placeholder="Masukkan nomor DG..." name="nodg_new" required>
-                                                                    @endif
+                                                                        <input type="text" class="form-control" id="exampleInputPassword1" value="{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}" placeholder="Masukkan nomor DG..." name="nodg_new" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Nama pelapor</label>
@@ -208,7 +193,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Keluhan</label>
-                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->keluhan}}" placeholder="Masukkan keluhan..." name="keluhan" required>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->jenisGangguan->nama_gangguan}}" disabled>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Merk KWH meter lama</label>
@@ -242,7 +227,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Perbaikan</label>
-                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->perbaikan}}" placeholder="Masukkan perbaikan..." name="perbaikan" required>
+                                                                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{$data->jenisPerbaikan->nama_perbaikan}}" placeholder="Masukkan perbaikan..." disabled>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputPassword1">Tahun buat KWH meter lama</label>
@@ -263,7 +248,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="modal fade" id="modalDelete{{$data->nodg}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id="modalDelete{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -279,11 +264,7 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                                                         <form action = "../hapus-bondg" method="POST">
                                                         @csrf
-                                                        @if (strlen($data->nodg)==7)
-                                                            <input type="text" value="0{{$data->nodg}}" name="id" hidden>
-                                                        @else 
-                                                            <input type="text" value="{{$data->nodg}}" name="id" hidden>
-                                                        @endif   
+                                                            <input type="text" value="{{str_pad($data->nodg, 8, '0', STR_PAD_LEFT)}}" name="id" hidden>
                                                     
                                                             <button type="submit" class="btn btn-danger">Ya</button>
                                                         </form>
@@ -293,18 +274,6 @@
                                         </div>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th style="width: 5%;">No.</th>
-                                            <th>Tgl. Laporan</th>
-                                            <th>No. DG</th>
-                                            <th>Nama Pelapor</th>
-                                            <th>ID Pelanggan</th>
-                                            <th>Status</th>
-                                            <th>Waktu Pengerjaan</th>
-                                            <th>Pilihan</th>                                            
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->

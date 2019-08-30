@@ -1,3 +1,4 @@
+<body>
 <table>
     <thead>
     <tr>
@@ -63,3 +64,4 @@
     @endforeach
     </tbody>
 </table>
+</body>

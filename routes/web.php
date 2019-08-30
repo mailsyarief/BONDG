@@ -15,11 +15,11 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes();
+// Auth::routes();
 
-/*Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login'); 
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');*/
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'PetugasController@index')->name('home');
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
@@ -52,3 +52,12 @@ Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::post('/profile', 'HomeController@suntingProfile')->name('post.profile');
 Route::get('/laporan', 'ViewerController@index')->name('viewer.laporan');
 Route::post('/password', 'HomeController@gantiPassword')->name('post.password');
+
+//newest
+Route::get('/foto-berita-acara/{id}', 'AdminController@fotoBeritaAcara');
+Route::post('/remaja2', 'AdminController@remaja2');
+Route::post('/upload-gangguan', 'AdminController@importGangguan');
+Route::get('/unduh-template', 'AdminController@unduhTemplate');
+// newest of newest
+Route::get('/tambah-akun', 'AdminController@showform_akun');
+Route::post('/ganti-password-akun', 'AdminController@gantiPassword');

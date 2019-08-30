@@ -106,7 +106,8 @@ class PenagihanExports implements FromView, ShouldAutoSize, WithEvents, WithColu
                 ];
                 $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
                 $event->sheet->getDelegate()->getStyle('A3:AA4')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('4bacc6');
-                
+                $event->sheet->getHeaderFooter()->setDifferentOddEven(false);
+                $event->sheet->getHeaderFooter()->setOddFooter('Copyright "eGamer"'); 
                 
             },
         ];

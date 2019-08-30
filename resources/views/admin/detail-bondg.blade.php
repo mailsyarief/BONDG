@@ -17,13 +17,9 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Status</li>
-                        <li class="breadcrumb-item"><a href="../bondg">BON DG</a></li>
+                        <li class="breadcrumb-item"><a href="../statusbondg">BON DG</a></li>
                         <li class="breadcrumb-item active">No. DG: <td>
-                                @if (strlen($bondg->nodg)==7)
-                                    0{{$bondg->nodg}}
-                                @else
-                                    {{$bondg->nodg}}
-                                @endif                                               
+                                {{str_pad($bondg->nodg, 8, '0', STR_PAD_LEFT)}}                                             
                             </td>
                         </li>
                     </ol>
@@ -56,15 +52,11 @@
                                         <tr>
                                             <th>No. BON DG:</th>
                                             <td>
-                                                @if (strlen($bondg->nodg)==7)
-                                                    0{{$bondg->nodg}}
-                                                @else
-                                                    {{$bondg->nodg}}
-                                                @endif                                               
+                                                {{str_pad($bondg->nodg, 8, '0', STR_PAD_LEFT)}}                                              
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Nama Pelapor:</th>
+                                            <th>Nama:</th>
                                             <td>{{$bondg->namapel}}</td>
                                         </tr>
                                         <tr>
@@ -201,11 +193,11 @@
                                         @endif                                       
                                         <tr>
                                             <th>Keluhan:</th>
-                                            <td>{{$bondg->keluhan}}</td>
+                                            <td>{{$bondg->jenisGangguan->nama_gangguan}}</td>
                                         </tr>
                                         <tr>
                                             <th>Perbaikan:</th>
-                                            <td>{{$bondg->perbaikan}}</td>
+                                            <td>{{$bondg->jenisPerbaikan->nama_perbaikan}}</td>
                                         </tr>
                                         <tr>
                                             <th>Waktu Pengerjaan:</th>

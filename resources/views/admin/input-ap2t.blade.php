@@ -74,7 +74,7 @@
                                             </td>
                                             <td>{{$data->namapel}}</td>
                                             <td>{{$data->idpel}}</td>
-                                            <td>{{$data->status}}</td>
+                                            <td>{{str_pad('k', 8, '0', STR_PAD_LEFT)}}</td>
                                             <td>
                                                 {{$data->waktupengerjaan}} hari
                                             </td>

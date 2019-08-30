@@ -102,11 +102,11 @@
                                         </table>
                                     </div>
                                     <div class="col-md-6">
-                                        <form method="POST" action="../tambah-ap2t">
+                                        <form id="ap2t" name="ap2t" action="../tambah-ap2t" method="POST">
                                             @csrf
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">No. agenda</label>
-                                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. agenda (18 digit)..." name="noagenda" required>
+                                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan no. agenda (18 digit)..." id="noagenda" name="noagenda" required> 
                                             </div>                                            
                                             <hr>
                                             <p><strong> KWH Meter Dipasang</strong></p>      
@@ -132,7 +132,7 @@
                                                 @else
                                                     <input type="text" name="id" value="{{$bondg->nodg}}" hidden>
                                                 @endif 
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <button onclick="validate(event)"  class="btn btn-primary">Simpan</button>
                                             </div>
                                         </form>
                                     </div>
@@ -150,8 +150,31 @@
 
 @section('js-ext')
 <script>
-    var cars = ["hai", "bye"];
- 
-console.log(cars);
+function validate(e)
+{
+    var message = '';
+    var error = 0;
+    e.preventDefault();
+    var x = document.forms["ap2t"]["noagenda"].value.length;
+    var y = document.forms["ap2t"]["nometerbaru"].value.length;        
+    if (x != 18) {
+        error ++;
+        message += 'Nomor agenda harus 18 digit!\n';
+    }
+    if (y != 11) {
+        error ++;
+        message += 'Nomor meter baru harus 11 digit!\n';
+    }
+    if (error >0)
+    {
+        alert(message);
+    }
+    else{
+        document.getElementById("ap2t").submit();
+    }
+}
+
 </script>
+
+
 @endsection

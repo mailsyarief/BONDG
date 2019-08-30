@@ -148,7 +148,7 @@ class OrderController extends Controller
             ]);
         }
     }
-    
+    //ganti ini
     public function GetOrder(Request $request)
     {   
         $user = User::where('remember_token', $request->token)->where('active', 1)->first();
@@ -159,9 +159,11 @@ class OrderController extends Controller
         else
         {
             $petugas = User::where('remember_token', $request->token)->where('active', 1)->first();
-            $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp_pelapor',
-                'alamat as alamat_pelapor', 'keluhan', 'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
-                'daya', 'gardu', 'perbaikan', 'tglkirimpetugas as tgl_kirim_petugas' )
+            $bondg = bondg::join('jenis_gangguan', 'id_jenis_gangguan', '=', 'jenis_gangguan.id')
+            ->join('jenis_perbaikan', 'id_jenis_perbaikan', '=', 'jenis_perbaikan.id')            
+            ->select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp_pelapor',
+                'alamat as alamat_pelapor',  'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
+                'daya', 'gardu',  'tglkirimpetugas as tgl_kirim_petugas', 'jenis_gangguan.nama_gangguan as keluhan', 'jenis_perbaikan.nama_perbaikan as perbaikan')
                 ->where('id_petugas', '=', $petugas->id)
                 ->where('status', '=', 'Pengiriman WO')
                 ->get();
@@ -188,9 +190,11 @@ class OrderController extends Controller
                 'id_laporan' => 'required',
             ]);
             $petugas = User::where('remember_token', $request->token)->where('active', 1)->first();        
-            $bondg = bondg::select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp_pelapor',
-                'alamat as alamat_pelapor', 'keluhan', 'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
-                'daya', 'gardu', 'perbaikan', 'tglkirimpetugas as tgl_kirim_petugas' )
+            $bondg = bondg::join('jenis_gangguan', 'id_jenis_gangguan', '=', 'jenis_gangguan.id')
+            ->join('jenis_perbaikan', 'id_jenis_perbaikan', '=', 'jenis_perbaikan.id')   
+            ->select('posko', 'nodg as id_laporan', 'namapel as nama_pelapor', 'nohp as no_hp_pelapor',
+                'alamat as alamat_pelapor', 'jenis_gangguan.nama_gangguan as keluhan', 'noagenda as nomor_agenda', 'tgldg as tgl_bln_thn', 'nometerlama as no_meter_lama', 'nometerbaru as no_meter_baru',
+                'daya', 'gardu', 'jenis_perbaikan.nama_perbaikan as perbaikan', 'tglkirimpetugas as tgl_kirim_petugas' )
                 ->where('nodg', '=', $request->id_laporan)
                 ->get();
             $idpetugas = bondg::where('nodg', '=', $request->id_laporan)->get();
