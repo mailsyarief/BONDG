@@ -113,18 +113,6 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th style="width: 5%;">No.</th>
-                                            <th>Tgl. Laporan</th>
-                                            <th>No. DG</th>
-                                            <th>Nama Pelapor</th>
-                                            <th>ID Pelanggan</th>
-                                            <th>Status</th>
-                                            <th>Detail</th>
-                                            <th>Tambah Petugas</th>                                            
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->

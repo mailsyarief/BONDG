@@ -30,7 +30,7 @@
             <div class="row">
             <div class="col-lg-4 col-4">
                 <!-- small card -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-primary">
                 <div class="inner">
                     <h3>{{$bondg}}</h3>
 
@@ -56,7 +56,7 @@
             </div>
             <div class="col-lg-4 col-4">
                 <!-- small card -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-secondary">
                 <div class="inner">
                     <h3>{{$kirimorang}}</h3>
 

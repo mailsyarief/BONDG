@@ -39,7 +39,9 @@ class BondgImport implements ToModel, WithHeadingRow
         
         $gangguan  = JenisGangguan::where('nama_gangguan', $row['gangguan'])->get();
         $perbaikan = JenisPerbaikan::where('nama_perbaikan', $row['perbaikan'])->get();
-        $dateTime = DateTime::createFromFormat('d/m/Y', $row['tgl_dg']);
+        $unixtime = ($row['tgl_dg'] - 25569) * 86400;
+        $dateTime = gmdate("Y-m-d", $unixtime);
+        // dd($dateTime);
         // dd(Carbon::parse($row['tgl_dg']));
 
         if (!isset($row['sisa_kwh_meter_lama'])) {
@@ -117,7 +119,7 @@ class BondgImport implements ToModel, WithHeadingRow
         }
 
         //check nodg
-        if($idGangguan!=1)
+        if($row['no_dg']=='APKT')
         {
             $nodg = $idGangguan.Carbon::now()->format('YmdHis'); 
         }

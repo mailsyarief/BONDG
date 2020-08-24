@@ -34,7 +34,7 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5>
-                            <ik class="icon fa fa-ban"></i> Peringatan!
+                            <i class="icon fa fa-ban"></i> Peringatan!
                         </h5>
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -61,10 +61,8 @@
                             </form>
                             <p class="mt-3"> Unduh file template:</p>
                             <div class="row">
-                                <div class="col-md-1 mr-2">
+                                <div class="col-md-3">
                                     <button type="button" class="btn btn-success" onclick="window.location.href='{{url('unduh-template')}}'">Unduh Template</button>
-                                </div>
-                                <div class="col-md-1">
                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tataCara">Tata Cara Pengisian Excel</button>
                                 </div>
                             </div>

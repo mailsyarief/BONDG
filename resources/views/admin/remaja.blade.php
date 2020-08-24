@@ -82,18 +82,6 @@
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th style="width: 5%;">No.</th>
-                                                <th>Tgl. Laporan</th>
-                                                <th>No. DG</th>
-                                                <th>Nama Pelapor</th>
-                                                <th>ID Pelanggan</th>
-                                                <th>Petugas</th>
-                                                <th>Status</th>
-                                                <th>Check</th>                                            
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                     <div class="row">
                                         <div class="col-md-12">
